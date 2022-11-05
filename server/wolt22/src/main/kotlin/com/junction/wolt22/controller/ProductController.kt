@@ -58,4 +58,15 @@ class ProductController (
             return ResponseEntity.badRequest().body(e.message)
         }
     }
+
+    // display all products that are not owned by the user that requests it
+    @GetMapping("/all/{userId}")
+    fun getAllProducts(@PathVariable("userId") userId: Int) : ResponseEntity<ArrayList<ProductDTO>>{
+        try {
+            val allproducts = productService.getAllProductOf(userId)
+            return ResponseEntity.ok(allproducts)
+        } catch (e : Exception) {
+            return ResponseEntity(HttpStatus.BAD_REQUEST)
+        }
+    }
 }

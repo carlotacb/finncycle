@@ -39,9 +39,9 @@ open var country: String? = null,
 open var phone: String = "",
 
 @get:Basic
-@get:Column(name = "apikey", nullable = false)
-open var apiKey: String = ""
-        ){
+@get:Column(name = "apikey", nullable = true)
+open var apiKey: String? = ""
+){
     @get:Id
     @get:Column(name = "id", nullable = false, insertable = false, updatable = false)
     @get:SequenceGenerator(name="idUsersGenerator", sequenceName = "users_id_seq", allocationSize = 1)
@@ -55,17 +55,7 @@ open var apiKey: String = ""
     @get:OneToMany(mappedBy = "refUsersEntity")
     open var refProductEntity: List<ProductEntity> = emptyList()
 
-    override fun toString(): String =
-        "Entity of type: ${javaClass.name} ( " +
-                "id = $id " +
-                "name = $name " +
-                "email = $email " +
-                "password = $password " +
-                "address = $address " +
-                "postalCode = $postalCode " +
-                "city = $city " +
-                "country = $country " +
-                ")"
+
 
     // constant value returned to avoid entity inequality to itself before and after it's update/merge
     override fun hashCode(): Int = 42
@@ -85,6 +75,18 @@ open var apiKey: String = ""
         if (country != other.country) return false
 
         return true
+    }
+
+    override fun toString(): String {
+        return "UsersEntity(name=$name," +
+                " email=$email," +
+                " password=$password," +
+                " address=$address," +
+                " postalCode=$postalCode," +
+                " city=$city," +
+                " country=$country," +
+                " phone=$phone," +
+                " apiKey=$apiKey)"
     }
 
 }

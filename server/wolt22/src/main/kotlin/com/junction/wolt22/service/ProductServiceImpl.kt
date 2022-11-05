@@ -41,6 +41,7 @@ class ProductServiceImpl(
         if (product.isPresent) {
             val producte = product.get()
             return ProductDTO(
+                producte.id,
                 producte.name,
                 producte.description,
                 producte.image,
@@ -65,14 +66,32 @@ class ProductServiceImpl(
             producteAModificar = productRepository.saveAndFlush(producteAModificar)
 
             return ProductDTO(
+                producteAModificar.id,
                 producteAModificar.name,
                 producteAModificar.description,
                 producteAModificar.image,
-                producteAModificar.type!!
+                producteAModificar.type
             )
 
         } else {
             throw RuntimeException()
         }
+    }
+
+    override fun getAllProductOf(userId: Int): ArrayList<ProductDTO> {
+        var products = productRepository.findAll()
+        var filteredProducts = arrayListOf<ProductDTO>();
+        products.forEach(fun (product : ProductEntity){
+            if(product.refUsersEntity?.id != userId){
+                filteredProducts.add(ProductDTO(
+                    id = product.id,
+                    name = product.name,
+                    description = product.description,
+                    image = product.image,
+                    type = product.type
+                ))
+            }
+        })
+        return filteredProducts
     }
 }
