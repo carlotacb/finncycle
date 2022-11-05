@@ -11,11 +11,16 @@ import kotlin.jvm.Throws
 class ProductServiceImpl(
         private val productRepository: ProductRepository
 ) : ProductService {
+
+    private val TYPE_REUSE = "REUSE"
+    private val TYPE_RECYCLE = "RECYCLE"
+
     override fun createProduct(user : UsersEntity, productDTO: ProductDTO): Boolean {
         val productEntity = ProductEntity(
                 name = productDTO.name,
                 description = productDTO.description,
-                image = productDTO.image
+                image = productDTO.image,
+                type = productDTO.type
         )
         val listProducts = user.refProductEntity.toMutableList()
         listProducts.add(productEntity)
@@ -34,7 +39,8 @@ class ProductServiceImpl(
             return ProductDTO(
                 producte.name,
                 producte.description,
-                producte.image
+                producte.image,
+                producte.type!!
             )
         } else
             throw RuntimeException()
@@ -43,7 +49,7 @@ class ProductServiceImpl(
 
     //NO SE EXACTAMET QUINS CAMPS VOLIA CANVIAR LA CARLOTA
     @Throws(RuntimeException::class)
-    override fun mofifyProduct(idProduct: Int, productDTO: ProductDTO): ProductDTO {
+    override fun modifyProduct(idProduct: Int, productDTO: ProductDTO): ProductDTO {
         val product = productRepository.findById(idProduct)
 
         if (product.isPresent) {
@@ -57,7 +63,8 @@ class ProductServiceImpl(
             return ProductDTO(
                 producteAModificar.name,
                 producteAModificar.description,
-                producteAModificar.image
+                producteAModificar.image,
+                producteAModificar.type!!
             )
 
         } else {

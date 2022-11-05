@@ -11,10 +11,6 @@ open class CyclesEntity(
     open var userId: Int? = null,
 
     @get:Basic
-    @get:Column(name = "type", nullable = false)
-    open var type: String = "",
-
-    @get:Basic
     @get:Column(name = "status", nullable = false)
     open var status: String = "",
 
@@ -45,7 +41,6 @@ open class CyclesEntity(
         "Entity of type: ${javaClass.name} ( " +
                 "id = $id " +
                 "userId = $userId " +
-                "type = $type " +
                 "status = $status " +
                 "productId = $productId " +
                 ")"
@@ -60,7 +55,6 @@ open class CyclesEntity(
 
         if (id != other.id) return false
         if (userId != other.userId) return false
-        if (type != other.type) return false
         if (status != other.status) return false
         if (productId != other.productId) return false
 

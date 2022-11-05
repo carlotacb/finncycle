@@ -8,5 +8,5 @@ interface ProductService {
 
     fun getProductDetail(idProduct : Int) : ProductDTO
 
-    fun mofifyProduct(idProduct: Int, productDTO: ProductDTO) : ProductDTO
+    fun modifyProduct(idProduct: Int, productDTO: ProductDTO) : ProductDTO
 }
