@@ -12,11 +12,11 @@ open class CyclesEntity(
 
     @get:Basic
     @get:Column(name = "type", nullable = false)
-    open var type: String? = null,
+    open var type: String = "",
 
     @get:Basic
     @get:Column(name = "status", nullable = false)
-    open var status: String? = null,
+    open var status: String = "",
 
     @get:Basic
     @get:Column(name = "product_id", nullable = false, insertable = false, updatable = false)
@@ -32,6 +32,10 @@ open class CyclesEntity(
     @get:ManyToOne(fetch = FetchType.LAZY)
     @get:JoinColumn(name = "user_id", referencedColumnName = "id")
     open var refUsersEntity: UsersEntity? = null
+
+    @get:ManyToOne(fetch = FetchType.LAZY)
+    @get:JoinColumn(name = "recipient_id", referencedColumnName = "id")
+    open var refUsersEntityRecipient: UsersEntity? = null
 
     @get:ManyToOne(fetch = FetchType.LAZY)
     @get:JoinColumn(name = "product_id", referencedColumnName = "id")
