@@ -8,30 +8,30 @@ open class ProductEntity(
 
     @get:Basic
     @get:Column(name = "name", nullable = false)
-    var name: String? = null,
+    open var name: String? = null,
 
     @get:Basic
 @get:Column(name = "description", nullable = true)
-var description: String? = null,
+open var description: String? = null,
 
 @get:Basic
 @get:Column(name = "image", nullable = true)
-var image: String? = null
+open var image: String? = null
 ) {
 
     @get:Id
     @get:Column(name = "id", nullable = false, insertable = false, updatable = false)
     @get:SequenceGenerator(name="idProductGenerator", sequenceName = "product_id_seq", allocationSize = 1)
     @get:GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "idProductGenerator")
-    var id: Int = 0
+    open var id: Int = 0
 
 
     @get:OneToMany(mappedBy = "refProductEntity")
-    var refCyclesEntities: List<CyclesEntity>? = null
+    open var refCyclesEntities: List<CyclesEntity>? = null
 
     @get:OneToOne(fetch = FetchType.LAZY)
     @get:JoinColumn(name = "id", referencedColumnName = "id")
-    var refUsersEntity: UsersEntity? = null
+    open var refUsersEntity: UsersEntity? = null
 
     override fun toString(): String =
         "Entity of type: ${javaClass.name} ( " +
