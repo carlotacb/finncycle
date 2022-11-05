@@ -1,6 +1,7 @@
 package com.junction.wolt22.service
 
-import com.junction.wolt22.beans.UsersDTO
+import com.junction.wolt22.beans.LoginDTO
+import com.junction.wolt22.beans.UserDTO
 import com.junction.wolt22.domain.UsersEntity
 import com.junction.wolt22.repository.UserRepository
 import org.springframework.stereotype.Service
@@ -25,34 +26,34 @@ class UserService (
         else throw RuntimeException()
     }
 
-    fun login(usersDTO: UsersDTO): Int {
-        val user = userRepository.findByEmail(usersDTO.email)
+    fun login(loginDTO: LoginDTO): String {
+        val user = userRepository.findByEmail(loginDTO.email)
         if (user.isPresent) {
             val pass = user.get().password
-            if (pass == usersDTO.password) {
-                generateApiKey(user.get())
-                return 0
+            if (pass == loginDTO.password) {
+                return generateApiKey(user.get())
             }
-            else return 1
+            else return "1"
         }
         else {
-            return 2
+            return "2"
         }
     }
 
-    private fun generateApiKey(user: UsersEntity) : Boolean {
+    private fun generateApiKey(user: UsersEntity) : String {
         val apiKey = randomID()
         user.apiKey = apiKey
-        val entity = userRepository.saveAndFlush(user)
-        return entity.id > -1
+        userRepository.saveAndFlush(user)
+        return apiKey
     }
 
-    fun register(user: UsersEntity): Boolean {
+    fun register(user: UsersEntity): String {
         if (!userRepository.findByEmail(user.email.toString()).isPresent) {
-            user.apiKey = randomID()
+            val apiKey = randomID()
+            user.apiKey = apiKey
             userRepository.saveAndFlush(user)
-            return true
-        } else return false
+            return apiKey
+        } else return ""
     }
 
     fun updateUser(user: UsersEntity) : Boolean {
@@ -66,5 +67,14 @@ class UserService (
         user.apiKey = null
         val entity = userRepository.saveAndFlush(user)
         return entity.id > -1
+    }
+
+    fun getUserInfo(apiKey: String): UserDTO {
+        val userDB = userRepository.findByApiKey(apiKey).get()
+        val reused = userRepository.countUsedItems(userDB.id)
+        val recycled = userRepository.countRecycledItems(userDB.id)
+        val claimed = userRepository.countClaimedItems(userDB.id)
+        return UserDTO(userDB.name, userDB.email, userDB.address, userDB.country, userDB.postalCode, userDB.phone,
+            userDB.apiKey, reused, recycled, claimed)
     }
 }

@@ -1,6 +1,6 @@
 package com.junction.wolt22.controller
 
-import com.junction.wolt22.beans.UsersDTO
+import com.junction.wolt22.beans.LoginDTO
 import com.junction.wolt22.domain.UsersEntity
 import com.junction.wolt22.service.UserService
 import org.springframework.http.HttpStatus
@@ -14,21 +14,24 @@ class UserController (
         ){
 
 
+    // Register of a user
     @PostMapping(path = ["/register"])
     fun registerUser(@RequestBody user : UsersEntity) : ResponseEntity<Any> {
         val res = userService.register(user)
-        if (res) return ResponseEntity(HttpStatus.CREATED)
+        if (res != "") return ResponseEntity(res, HttpStatus.CREATED)
         else return ResponseEntity(HttpStatus.BAD_REQUEST)
     }
 
+    // Login of a user
     @GetMapping(path = ["/login"])
-    fun loginUser(@RequestBody user : UsersDTO) : ResponseEntity<Any> {
+    fun loginUser(@RequestBody user : LoginDTO) : ResponseEntity<Any> {
         val res = userService.login(user)
-        if (res == 0) return ResponseEntity(HttpStatus.OK)
-        else if (res == 1) return ResponseEntity(HttpStatus.FORBIDDEN)
-        else return ResponseEntity(HttpStatus.NOT_FOUND)
+        if (res == "1") return ResponseEntity(HttpStatus.FORBIDDEN)
+        else if (res == "2") return ResponseEntity(HttpStatus.NOT_FOUND)
+        else return ResponseEntity(res, HttpStatus.OK)
     }
 
+    // Logout of a user
     @PostMapping(path = ["/logout"])
     fun logoutUser(@RequestParam apiKey: String) : ResponseEntity<Any> {
         if (userService.authenticateUser(apiKey)) {
@@ -38,6 +41,7 @@ class UserController (
         else return ResponseEntity(HttpStatus.UNAUTHORIZED)
     }
 
+    // Updates information about a user
    @PostMapping(path = ["/update"])
    fun updateUser(@RequestParam apiKey : String, @RequestBody user: UsersEntity) : ResponseEntity<Any> {
        if (userService.authenticateUser(apiKey)) {
@@ -50,6 +54,12 @@ class UserController (
    }
 
     // TODO GetUser
+    @PostMapping(path = ["/profile"])
+    fun getUserInfo(@RequestParam apiKey: String) : ResponseEntity<Any> {
+        if (userService.authenticateUser(apiKey)) {
+            return ResponseEntity(userService.getUserInfo(apiKey),HttpStatus.OK)
 
-    // TODO get user stats
+        } else return ResponseEntity(HttpStatus.UNAUTHORIZED)
+    }
+
 }
