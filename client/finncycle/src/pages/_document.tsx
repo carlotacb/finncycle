@@ -5,7 +5,6 @@ import Document, {
 import { ServerStyleSheet } from 'styled-components';
 
 export default class MyDocument extends Document {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   static async getInitialProps(ctx: DocumentContext): Promise<any> {
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
