@@ -44,8 +44,8 @@ open var country: String? = null
     @get:OneToMany(mappedBy = "refUsersEntity")
     open var refCyclesEntities: List<CyclesEntity>? = null
 
-    @get:OneToOne(mappedBy = "refUsersEntity")
-    open var refProductEntity: ProductEntity? = null
+    @get:OneToMany(mappedBy = "refUsersEntity")
+    open var refProductEntity: List<ProductEntity> = emptyList()
 
     override fun toString(): String =
         "Entity of type: ${javaClass.name} ( " +
