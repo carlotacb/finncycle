@@ -8,7 +8,7 @@ open class ProductEntity(
 
     @get:Basic
     @get:Column(name = "name", nullable = false)
-    open var name: String? = null,
+    open var name: String = "",
 
     @get:Basic
 @get:Column(name = "description", nullable = true)
@@ -16,7 +16,8 @@ open var description: String? = null,
 
 @get:Basic
 @get:Column(name = "image", nullable = true)
-open var image: String? = null
+open var image: String? = null,
+
 ) {
 
     @get:Id
@@ -29,8 +30,8 @@ open var image: String? = null
     @get:OneToMany(mappedBy = "refProductEntity")
     open var refCyclesEntities: List<CyclesEntity>? = null
 
-    @get:OneToOne(fetch = FetchType.LAZY)
-    @get:JoinColumn(name = "id", referencedColumnName = "id")
+    @get:ManyToOne(fetch = FetchType.LAZY)
+    @get:JoinColumn(name = "user_id", referencedColumnName = "id")
     open var refUsersEntity: UsersEntity? = null
 
     override fun toString(): String =

@@ -1,7 +1,12 @@
 package com.junction.wolt22.service
 
 import com.junction.wolt22.beans.ProductDTO
+import com.junction.wolt22.domain.UsersEntity
 
 interface ProductService {
-    fun createProduct(productDTO: ProductDTO) : Boolean
+    fun createProduct(user: UsersEntity, productDTO: ProductDTO) : Boolean
+
+    fun getProductDetail(idProduct : Int) : ProductDTO
+
+    fun mofifyProduct(idProduct: Int, productDTO: ProductDTO) : ProductDTO
 }
