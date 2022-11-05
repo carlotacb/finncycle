@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {BaseSyntheticEvent, useState} from "react";
+import {BaseSyntheticEvent} from "react";
 import {colors} from "../../constants/global-styles";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLightbulb, faTree, faHandshake } from "@fortawesome/free-solid-svg-icons";
