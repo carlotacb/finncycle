@@ -41,10 +41,10 @@ open var country: String? = null
     open var id: Int = 0
 
 
-    @get:OneToMany(mappedBy = "refUsersEntity")
+    @get:OneToMany(mappedBy = "refUserEntity")
     open var refCyclesEntities: List<CyclesEntity>? = null
 
-    @get:OneToMany(mappedBy = "refUsersEntity")
+    @get:OneToMany(mappedBy = "refUserEntity")
     open var refProductEntity: List<ProductEntity> = emptyList()
 
     override fun toString(): String =
@@ -65,7 +65,7 @@ open var country: String? = null
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
-        other as UsersEntity
+        other as UserEntity
 
         if (id != other.id) return false
         if (name != other.name) return false
