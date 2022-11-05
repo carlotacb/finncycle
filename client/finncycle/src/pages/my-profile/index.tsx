@@ -2,7 +2,7 @@ import styled from "styled-components";
 import {BaseSyntheticEvent, useState} from "react";
 import {colors} from "../../constants/global-styles";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFlagCheckered, faTrashCan, faHandshake } from "@fortawesome/free-solid-svg-icons";
+import { faLightbulb, faTree, faHandshake } from "@fortawesome/free-solid-svg-icons";
 import Head from "next/head";
 
 
@@ -67,6 +67,7 @@ const SubmitButton = styled.button`
   background-color: ${colors.primaryColor};
   cursor: pointer;
   color: white;
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   
   &:hover {
     font-weight: bold;
@@ -88,7 +89,8 @@ const LogoutButton = styled.button`
   background-color: transparent;
   cursor: pointer;
   color: ${colors.primaryColor};
-  
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+
   &:hover {
     font-weight: bold;
   }
@@ -102,12 +104,20 @@ const StatsCyclesContainer = styled.div`
   display: flex;
   justify-content: space-between;
   width: 80%;
+
+  @media(max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 const GroupStat = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media(max-width: 768px) {
+    margin: 15px;
+  }
 `;
 
 const StatNumber = styled.div<{color: string}>`
@@ -209,12 +219,12 @@ export default function MyProfile() {
 
         <StatsCyclesContainer>
           <GroupStat>
-            <StatNumber color={colors.primaryColor}>30 <FontAwesomeIcon icon={faFlagCheckered} /></StatNumber>
-            <StatCaption> Created cycles</StatCaption>
+            <StatNumber color={colors.primaryColor}>30 <FontAwesomeIcon icon={faLightbulb} /></StatNumber>
+            <StatCaption> Reused items</StatCaption>
           </GroupStat>
           <GroupStat>
-            <StatNumber color={colors.red}>20 <FontAwesomeIcon icon={faTrashCan} /></StatNumber>
-            <StatCaption> Trash items recycled </StatCaption>
+            <StatNumber color={colors.red}>20 <FontAwesomeIcon icon={faTree} /></StatNumber>
+            <StatCaption> Recycled items </StatCaption>
           </GroupStat>
           <GroupStat>
             <StatNumber color={colors.green}>10 <FontAwesomeIcon icon={faHandshake} /></StatNumber>
