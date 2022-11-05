@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import {colors} from "../constants/global-styles";
 import Link from "next/link";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faArrowsSpin, faIdCard, faTruckFast} from "@fortawesome/free-solid-svg-icons";
 
 const Container = styled.main`
   width: 100%;
@@ -24,12 +26,22 @@ const LinkSection = styled.div`
   padding: 20px;
 `;
 
-const LinkText = styled.div`
+const LinkInformation = styled.div`
+  display: flex;
+  align-items: center;
   padding: 12px;
+`;
+
+const LinkText = styled.div`
+  margin-left: 10px;
   
   &:hover {
     font-weight: bold;
     color: ${colors.primaryColor};
+  }
+  
+  @media(max-width: 768px) {
+    display: none;
   }
 `;
 
@@ -39,13 +51,22 @@ export default function Header() {
       <Logo>FinnCycle</Logo>
       <LinkSection>
         <Link href="/available-products" passHref>
-          <LinkText>Available products</LinkText>
+          <LinkInformation>
+            <FontAwesomeIcon icon={faTruckFast} />
+            <LinkText>Available products</LinkText>
+          </LinkInformation>
         </Link>
         <Link href="/my-cycles" passHref>
-          <LinkText>My cycles</LinkText>
+          <LinkInformation>
+            <FontAwesomeIcon icon={faArrowsSpin} />
+            <LinkText>My cycles</LinkText>
+          </LinkInformation>
         </Link>
         <Link href="/my-profile" passHref>
-          <LinkText>My profile</LinkText>
+          <LinkInformation>
+            <FontAwesomeIcon icon={faIdCard} />
+            <LinkText>My profile</LinkText>
+          </LinkInformation>
         </Link>
       </LinkSection>
     </Container>

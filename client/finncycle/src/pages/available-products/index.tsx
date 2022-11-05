@@ -1,41 +1,105 @@
+import styled from "styled-components";
+import Head from "next/head";
+import { faRecycle, faInfo } from "@fortawesome/free-solid-svg-icons";
+import ProductCard from "../../components/generic-components/ProductCard";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 4%;
+  width: 100%;
+`;
+
 export default function AvailableProducts() {
   return (
-    <div>
-      <h1>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pellentesque egestas eros venenatis fermentum. Nullam consequat ex in turpis scelerisque, nec finibus neque egestas. Phasellus maximus sagittis dui, sit amet convallis mauris pulvinar at. Fusce porttitor tristique felis, et lacinia felis congue eu. Duis eu turpis non mauris faucibus tempus. Praesent eget velit commodo, interdum nisl ut, imperdiet lectus. Pellentesque malesuada risus tellus, vitae pretium nunc aliquam vitae. Etiam eros magna, mollis a lobortis dictum, interdum at libero. In nec finibus risus, id lobortis felis. Quisque fermentum sagittis urna vitae sagittis. Maecenas eu odio quis ex finibus hendrerit. Phasellus aliquet velit vulputate diam maximus semper.
-
-        Quisque orci lacus, ultrices et molestie eu, vestibulum nec ex. Nam convallis eget ipsum eu interdum. Donec vitae blandit leo, tincidunt elementum leo. Nam ac orci nibh. Nulla semper egestas velit, consectetur rhoncus arcu feugiat vitae. Sed efficitur efficitur lectus, eget facilisis est congue sed. Nunc quam quam, congue sit amet lobortis eget, ultricies id augue. Sed at vulputate erat. Sed pharetra augue quis nisi efficitur porttitor.
-
-        Integer aliquam rutrum velit. Sed consequat nisl et purus venenatis, a volutpat dui cursus. Cras non dolor neque. Morbi tempor aliquam ipsum ac aliquet. Suspendisse arcu lectus, viverra sed metus eu, maximus tincidunt nisi. Nam enim velit, aliquet quis mauris id, gravida interdum velit. Sed vitae bibendum risus.
-
-        Pellentesque condimentum mattis placerat. Fusce elementum faucibus justo id finibus. Praesent molestie egestas dui vel pretium. Maecenas vitae massa quam. In hac habitasse platea dictumst. Donec sodales purus at risus pulvinar vestibulum. Phasellus in sem a massa feugiat tempus nec quis enim. Maecenas vel risus ex. Quisque finibus velit at erat mattis gravida quis et eros. Cras ut porta elit, a fermentum metus. Integer commodo tempus commodo.
-
-        Nam ac erat ex. Pellentesque eget dapibus nisl, ullamcorper efficitur ligula. Fusce mollis nec sem sed lacinia. Donec auctor tempor rhoncus. Mauris aliquet lectus vitae orci consectetur, et semper nibh accumsan. Proin blandit ligula in ipsum rhoncus gravida. Cras consectetur, mauris eu vestibulum tempus, risus ligula maximus libero, id elementum quam magna mattis nulla. Aenean a metus sit amet libero pretium lacinia.
-
-        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed congue, orci eget tristique varius, ligula justo consectetur nisi, a porta lacus nibh non justo. In tincidunt lectus pharetra arcu rutrum, at molestie lacus pharetra. Duis efficitur ac lacus eu consectetur. Ut a eros in orci tempus vulputate ac sed dolor. In sit amet venenatis est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vitae scelerisque eros, et imperdiet nulla. Proin vel congue elit.
-
-        Duis a convallis ligula. Nullam finibus non enim sollicitudin egestas. Mauris sollicitudin tellus ac egestas tincidunt. In volutpat turpis non mauris dictum tincidunt viverra quis nisl. Pellentesque varius nisi dui, id accumsan justo euismod sit amet. In mollis iaculis blandit. Suspendisse nec nunc id magna accumsan ornare sit amet ut mi. Quisque elementum eleifend dui non elementum. Duis maximus risus eu tellus consequat, a volutpat velit ornare. Nam lobortis lacus quis ligula tempus, vitae luctus metus tempus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras placerat lectus ac lacus placerat sollicitudin.
-
-        Nullam porta mi quis nunc suscipit, nec commodo urna euismod. Nullam ac massa nunc. Phasellus vitae neque at justo eleifend sagittis quis id ipsum. Ut eu velit vitae est imperdiet elementum in id tortor. Duis euismod at nulla ut maximus. Fusce non maximus odio, et eleifend dui. Donec mollis tortor nec erat hendrerit, ac auctor elit porta. Pellentesque dictum, sapien sit amet laoreet feugiat, ante ex pellentesque magna, eget rhoncus lectus metus id dolor. Etiam metus lectus, fringilla id dolor eget, tempor egestas lacus. Nam vehicula, odio nec laoreet dictum, magna neque euismod nulla, vel viverra tellus ante sed sem. Praesent fringilla, neque scelerisque ullamcorper efficitur, dolor quam venenatis metus, at tincidunt diam diam in neque. Curabitur sit amet lorem eros.
-
-        Vivamus sed hendrerit lorem. Suspendisse id ex auctor, hendrerit dolor vel, sollicitudin ex. Donec vitae aliquet velit. Aliquam et augue felis. Duis in pulvinar arcu, maximus mollis ex. Fusce in lacinia sem. Curabitur facilisis libero tellus, quis vulputate leo vulputate id. Phasellus sollicitudin tortor sit amet condimentum ornare. Suspendisse viverra luctus leo, non venenatis orci feugiat eu. Maecenas ullamcorper vehicula ante dapibus scelerisque. Ut purus ante, tristique nec augue ac, rhoncus rutrum lorem. Morbi cursus nulla in ante varius tempus. Morbi ultricies volutpat pretium.
-
-        Pellentesque sodales vehicula mi eget iaculis. Nulla egestas, mauris nec finibus pretium, sem nisi aliquet libero, quis scelerisque massa urna vel erat. Sed et blandit orci. Vivamus turpis metus, cursus id erat eget, semper consequat sem. Vivamus nec felis elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum feugiat eros in mi consequat tempus. Morbi tellus nunc, finibus vehicula pulvinar malesuada, sollicitudin sollicitudin nulla.
-
-        Sed sollicitudin ante posuere nulla ullamcorper mattis. Nunc quam massa, elementum ac congue vitae, sagittis in felis. Mauris ut nulla a tortor suscipit gravida eu id odio. Nullam auctor mauris non erat porta, vitae venenatis velit porta. Fusce sed orci pellentesque eros congue dictum. Ut sed justo vestibulum, consequat nulla vitae, fermentum est. Integer lorem ante, ullamcorper ut lectus vitae, pretium auctor risus. Integer mollis turpis vel placerat eleifend. Nullam placerat enim ut neque malesuada tincidunt. Ut tempor mauris a porttitor fringilla. Fusce purus ipsum, tristique sit amet dolor quis, mattis feugiat lacus. Vestibulum id tortor viverra, blandit metus ut, sollicitudin velit. Fusce ligula ligula, tincidunt a maximus et, pharetra quis libero. Suspendisse euismod sem eget augue hendrerit sagittis.
-
-        Nam eu dapibus leo. Sed ac neque elit. Aliquam bibendum turpis non velit vestibulum, sagittis elementum lorem pellentesque. Vestibulum ac bibendum felis. Donec rutrum ligula erat, a dapibus elit volutpat id. Nulla facilisi. Sed faucibus, leo ut tincidunt cursus, neque nulla lobortis lacus, quis molestie sapien lectus ac sem. Aliquam non tellus et ligula iaculis laoreet. Nunc hendrerit tortor tortor, maximus lobortis quam congue vel. Etiam gravida enim efficitur, commodo augue sed, laoreet eros. Fusce sit amet varius orci, at ullamcorper dui. Morbi dui nisl, eleifend eget tellus id, dictum dignissim velit.
-
-        Curabitur nisi ipsum, fermentum non elit quis, pharetra hendrerit ante. Pellentesque in ipsum placerat, hendrerit arcu placerat, pulvinar nulla. Quisque placerat pharetra magna eget posuere. Nam lobortis, elit eget ultrices placerat, massa dolor vulputate ante, sit amet semper lorem urna sit amet massa. Maecenas a lobortis sem, quis tincidunt odio. Vivamus eget semper velit. Phasellus molestie et odio at tincidunt. Proin sed tempor libero. Proin sem libero, viverra sed mollis nec, viverra sed nisi. Vestibulum lectus sapien, maximus sit amet ullamcorper quis, aliquet egestas ante. Quisque rutrum accumsan faucibus. Duis sollicitudin pharetra metus, vel interdum urna pellentesque quis.
-
-        Mauris malesuada felis eu tellus lacinia, nec viverra nisl euismod. Vivamus dictum accumsan nisi ac scelerisque. Duis bibendum risus ut erat ullamcorper, nec blandit arcu sollicitudin. Pellentesque ac blandit eros, et ornare diam. Phasellus suscipit nisl eu odio vehicula, vel tincidunt nisl blandit. Mauris feugiat arcu facilisis ornare interdum. Donec fringilla libero nec euismod ultricies. Phasellus vel lacus a metus lacinia volutpat eu ut mauris. Aliquam dapibus mattis aliquet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque enim purus, accumsan eget odio sed, pellentesque sagittis urna. Aliquam pellentesque nulla ut orci pulvinar, id posuere nisl molestie.
-
-        Sed pulvinar neque dictum, ultrices libero vel, dictum dui. Curabitur ac elit magna. In eget ultrices metus. Maecenas lectus libero, facilisis eget iaculis ac, interdum ut magna. Fusce congue, metus sit amet molestie varius, nibh sem molestie augue, et consequat est nisl ac nisi. Aliquam semper, ligula ut porttitor vulputate, magna ex laoreet libero, non consequat mi mi a ligula. Aliquam maximus dui ex, ac commodo felis imperdiet non. Nunc non metus posuere, laoreet risus ut, scelerisque odio. Sed nec elit arcu. Curabitur rutrum ante purus, nec vehicula urna varius rhoncus. Nunc non velit eros.
-
-        Nunc blandit commodo lacinia. Maecenas non erat mattis ante rhoncus eleifend sit amet in purus. Nunc blandit gravida velit, non vulputate ligula pretium nec. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean mollis purus magna, ac pharetra justo porttitor sit amet. Sed fringilla, odio at efficitur lacinia, massa nunc aliquet lacus, sed tempus orci ex vitae ex. In suscipit justo nec dui sodales cursus. Duis ligula lorem, congue non finibus id, pharetra eget elit. Cras mattis, nisi a gravida ultricies, lectus massa vestibulum turpis, at maximus neque enim ut augue.
-
-        Ut porttitor purus sit amet enim euismod placerat non et enim. Nullam accumsan urna vel eros vulputate, sit amet ullamcorper lectus dapibus. Nullam a erat dui. Nunc facilisis felis ut lorem aliquet lacinia. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Vestibulum id sapien sapien. Praesent varius vehicula tortor ut vehicula. Nunc sollicitudin ligula sit amet purus fermentum, commodo tempus metus tincidunt. Nullam a placerat elit. Nullam urna dolor, efficitur vitae diam et, blandit dignissim massa. Donec nec tellus libero. Morbi nec commodo metus. Sed sed lacinia leo, ac elementum orci. Nunc tristique lacinia lorem, et semper augue dictum vel.
-
-        Pellentesque lobortis finibus mauris et maximus. Mauris at egestas dolor, a efficitur ex. Quisque sed mi at lorem rhoncus sollicitudin ac sit amet quam. Nullam tristique bibendum mauris. In eget gravida tortor, nec tincidunt ex. Nam eget risus vitae lectus varius tempor. Vestibulum facilisis nulla eget tellus ornare, eget finibus nisl lobortis. Integer nisl odio, aliquet non dictum eget, placerat nec nulla. Fusce eleifend elit ante, vel condimentum orci porttitor a. Donec in semper dolor. Nullam et cursus elit. Sed eros erat, egestas in consectetur a, mollis at odio. Maecenas vel congue mauris, ut vestibulum mi.</h1>
-    </div>
+    <>
+      <Head>
+        <title>Finncycle</title>
+      </Head>
+      <Container>
+        <ProductCard
+          productName="Product Name"
+          solidButton
+          solidButtonIcon={<FontAwesomeIcon icon={faRecycle}/>}
+          solidButtonText="Claim"
+          outlineButton
+          outlineButtonIcon={<FontAwesomeIcon icon={faInfo}/>}
+        />
+        <ProductCard
+          productName="Product Name"
+          solidButton
+          solidButtonIcon={<FontAwesomeIcon icon={faRecycle}/>}
+          solidButtonText="Claim"
+          outlineButton
+          outlineButtonIcon={<FontAwesomeIcon icon={faInfo}/>}
+        />
+        <ProductCard
+          productName="Product Name"
+          solidButton
+          solidButtonIcon={<FontAwesomeIcon icon={faRecycle}/>}
+          solidButtonText="Claim"
+          outlineButton
+          outlineButtonIcon={<FontAwesomeIcon icon={faInfo}/>}
+        />
+        <ProductCard
+          productName="Product Name"
+          solidButton
+          solidButtonIcon={<FontAwesomeIcon icon={faRecycle}/>}
+          solidButtonText="Claim"
+          outlineButton
+          outlineButtonIcon={<FontAwesomeIcon icon={faInfo}/>}
+        />
+        <ProductCard
+          productName="Product Name"
+          solidButton
+          solidButtonIcon={<FontAwesomeIcon icon={faRecycle}/>}
+          solidButtonText="Claim"
+          outlineButton
+          outlineButtonIcon={<FontAwesomeIcon icon={faInfo}/>}
+        />
+        <ProductCard
+          productName="Product Name"
+          solidButton
+          solidButtonIcon={<FontAwesomeIcon icon={faRecycle}/>}
+          solidButtonText="Claim"
+          outlineButton
+          outlineButtonIcon={<FontAwesomeIcon icon={faInfo}/>}
+        />
+        <ProductCard
+          productName="Product Name"
+          solidButton
+          solidButtonIcon={<FontAwesomeIcon icon={faRecycle}/>}
+          solidButtonText="Claim"
+          outlineButton
+          outlineButtonIcon={<FontAwesomeIcon icon={faInfo}/>}
+        />
+        <ProductCard
+          productName="Product Name"
+          solidButton
+          solidButtonIcon={<FontAwesomeIcon icon={faRecycle}/>}
+          solidButtonText="Claim"
+          outlineButton
+          outlineButtonIcon={<FontAwesomeIcon icon={faInfo}/>}
+        />
+        <ProductCard
+          productName="Product Name"
+          solidButton
+          solidButtonIcon={<FontAwesomeIcon icon={faRecycle}/>}
+          solidButtonText="Claim"
+          outlineButton
+          outlineButtonIcon={<FontAwesomeIcon icon={faInfo}/>}
+        />
+        <ProductCard
+          productName="Product Name"
+          solidButton
+          solidButtonIcon={<FontAwesomeIcon icon={faRecycle}/>}
+          solidButtonText="Claim"
+          outlineButton
+          outlineButtonIcon={<FontAwesomeIcon icon={faInfo}/>}
+        />
+      </Container>
+    </>
   )
 }
