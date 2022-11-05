@@ -26,6 +26,12 @@ class UserService (
         else throw RuntimeException()
     }
 
+    fun getUserById(id : Int) : UsersEntity {
+        val user = userRepository.findById(id)
+        if (user.isPresent) return user.get()
+        else throw Exception()
+    }
+
     fun login(loginDTO: LoginDTO): String {
         val user = userRepository.findByEmail(loginDTO.email)
         if (user.isPresent) {

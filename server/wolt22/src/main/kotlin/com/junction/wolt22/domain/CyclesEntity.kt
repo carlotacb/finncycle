@@ -11,12 +11,8 @@ open class CyclesEntity(
     open var userId: Int? = null,
 
     @get:Basic
-    @get:Column(name = "type", nullable = false)
-    open var type: String? = null,
-
-    @get:Basic
     @get:Column(name = "status", nullable = false)
-    open var status: String? = null,
+    open var status: String = "",
 
     @get:Basic
     @get:Column(name = "product_id", nullable = false, insertable = false, updatable = false)
@@ -34,6 +30,10 @@ open class CyclesEntity(
     open var refUsersEntity: UsersEntity? = null
 
     @get:ManyToOne(fetch = FetchType.LAZY)
+    @get:JoinColumn(name = "recipient_id", referencedColumnName = "id")
+    open var refUsersEntityRecipient: UsersEntity? = null
+
+    @get:ManyToOne(fetch = FetchType.LAZY)
     @get:JoinColumn(name = "product_id", referencedColumnName = "id")
     open var refProductEntity: ProductEntity? = null
 
@@ -41,7 +41,6 @@ open class CyclesEntity(
         "Entity of type: ${javaClass.name} ( " +
                 "id = $id " +
                 "userId = $userId " +
-                "type = $type " +
                 "status = $status " +
                 "productId = $productId " +
                 ")"
@@ -56,7 +55,6 @@ open class CyclesEntity(
 
         if (id != other.id) return false
         if (userId != other.userId) return false
-        if (type != other.type) return false
         if (status != other.status) return false
         if (productId != other.productId) return false
 

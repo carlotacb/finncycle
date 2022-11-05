@@ -36,12 +36,12 @@ open var country: String? = null,
 
 @get:Basic
 @get:Column(name = "phone", nullable = false)
-open var phone: String? = null,
+open var phone: String = "",
 
 @get:Basic
 @get:Column(name = "apikey", nullable = true)
-open var apiKey: String? = null
-        ){
+open var apiKey: String? = ""
+){
     @get:Id
     @get:Column(name = "id", nullable = false, insertable = false, updatable = false)
     @get:SequenceGenerator(name="idUsersGenerator", sequenceName = "users_id_seq", allocationSize = 1)

@@ -5,8 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import java.util.*
 
-interface UserRepository: JpaRepository<UsersEntity, Int> {
 
+interface UserRepository: JpaRepository<UsersEntity, Int> {
     fun findByEmail(email: String) : Optional<UsersEntity>
     fun findByApiKey(apiKey : String) : Optional<UsersEntity>
     @Query(nativeQuery = true, value = "select count(*) from product p where p.user_id = ?1 and p.type = 'RECYCLE'")

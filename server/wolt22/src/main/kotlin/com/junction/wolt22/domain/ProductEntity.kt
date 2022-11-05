@@ -11,12 +11,16 @@ open class ProductEntity(
     open var name: String = "",
 
     @get:Basic
-@get:Column(name = "description", nullable = true)
-open var description: String? = null,
+    @get:Column(name = "description", nullable = true)
+    open var description: String? = null,
 
-@get:Basic
-@get:Column(name = "image", nullable = true)
-open var image: String? = null,
+    @get:Basic
+    @get:Column(name = "image", nullable = true)
+    open var image: String? = null,
+
+    @get:Basic
+    @get:Column(name = "type", nullable = true)
+    open var type: String = "",
 
 ) {
 
