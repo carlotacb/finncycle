@@ -8,44 +8,44 @@ open class UsersEntity (
 
     @get:Basic
     @get:Column(name = "name", nullable = false)
-    var name: String? = null,
+    open var name: String? = null,
 
     @get:Basic
 @get:Column(name = "email", nullable = false)
-var email: String? = null,
+open var email: String? = null,
 
 @get:Basic
 @get:Column(name = "password", nullable = false)
-var password: String? = null,
+open var password: String? = null,
 
 @get:Basic
 @get:Column(name = "address", nullable = false)
-var address: String? = null,
+open var address: String? = null,
 
 @get:Basic
 @get:Column(name = "postal_code", nullable = false)
-var postalCode: Int? = null,
+open var postalCode: Int? = null,
 
 @get:Basic
 @get:Column(name = "city", nullable = false)
-var city: String? = null,
+open var city: String? = null,
 
 @get:Basic
 @get:Column(name = "country", nullable = false)
-var country: String? = null
+open var country: String? = null
         ){
     @get:Id
     @get:Column(name = "id", nullable = false, insertable = false, updatable = false)
     @get:SequenceGenerator(name="idUsersGenerator", sequenceName = "users_id_seq", allocationSize = 1)
     @get:GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "idUsersGenerator")
-    var id: Int = 0
+    open var id: Int = 0
 
 
     @get:OneToMany(mappedBy = "refUsersEntity")
-    var refCyclesEntities: List<CyclesEntity>? = null
+    open var refCyclesEntities: List<CyclesEntity>? = null
 
     @get:OneToOne(mappedBy = "refUsersEntity")
-    var refProductEntity: ProductEntity? = null
+    open var refProductEntity: ProductEntity? = null
 
     override fun toString(): String =
         "Entity of type: ${javaClass.name} ( " +

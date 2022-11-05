@@ -8,34 +8,34 @@ open class CyclesEntity(
 
     @get:Basic
     @get:Column(name = "user_id", nullable = false, insertable = false, updatable = false)
-    var userId: Int? = null,
+    open var userId: Int? = null,
 
     @get:Basic
-@get:Column(name = "type", nullable = false)
-var type: String? = null,
+    @get:Column(name = "type", nullable = false)
+    open var type: String? = null,
 
-@get:Basic
-@get:Column(name = "status", nullable = false)
-var status: String? = null,
+    @get:Basic
+    @get:Column(name = "status", nullable = false)
+    open var status: String? = null,
 
-@get:Basic
-@get:Column(name = "product_id", nullable = false, insertable = false, updatable = false)
-var productId: Int? = null
+    @get:Basic
+    @get:Column(name = "product_id", nullable = false, insertable = false, updatable = false)
+    open var productId: Int? = null
 
 ) {
     @get:Id
     @get:Column(name = "id", nullable = false)
     @get:SequenceGenerator(name="idCycleGenerator", sequenceName = "transaction_id_seq", allocationSize = 1)
     @get:GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "idCycleGenerator")
-    var id: Int = 0
+    open var id: Int = 0
 
     @get:ManyToOne(fetch = FetchType.LAZY)
     @get:JoinColumn(name = "user_id", referencedColumnName = "id")
-    var refUsersEntity: UsersEntity? = null
+    open var refUsersEntity: UsersEntity? = null
 
     @get:ManyToOne(fetch = FetchType.LAZY)
     @get:JoinColumn(name = "product_id", referencedColumnName = "id")
-    var refProductEntity: ProductEntity? = null
+    open var refProductEntity: ProductEntity? = null
 
     override fun toString(): String =
         "Entity of type: ${javaClass.name} ( " +
