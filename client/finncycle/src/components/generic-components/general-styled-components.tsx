@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {colors} from "../constants/global-styles";
+import {colors} from "../../constants/global-styles";
 
 export const StyledButton = styled.button<{solid?: boolean; outline?: boolean}>`
   padding: 10px 20px;
@@ -50,5 +50,16 @@ export const StyledButton = styled.button<{solid?: boolean; outline?: boolean}>`
     border: 1px solid ${colors.primaryColor};
     color: ${colors.primaryColor};
   `}
+  }
+`;
+
+export const H1 = styled.h1`
+  font-size: 2em;
+  margin-top: 10px;
+  margin-bottom: 30px;
+
+  @media(max-width: 768px) {
+    font-size: 1.5em;
+    margin-bottom: 20px;
   }
 `;

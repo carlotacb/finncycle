@@ -4,6 +4,8 @@ import {colors} from "../../constants/global-styles";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLightbulb, faTree, faHandshake } from "@fortawesome/free-solid-svg-icons";
 import Head from "next/head";
+import {H1, StyledButton} from "../../components/generic-components/general-styled-components";
+import InputGroup from "../../components/generic-components/InputGroup";
 
 
 const Container = styled.div`
@@ -13,90 +15,27 @@ const Container = styled.div`
   padding: 4%;
 `;
 
-const NotInputField = styled.div`
-  padding: 10px;
-  font-size: 15px;
-  border: solid 2px black;
-  border-radius: 5px;
-  background-color: rgba(217, 217, 217, 0.4);;
-  width: 100%;
-  color: #606060;
-`;
-
-const InputField = styled.input`
-  padding: 10px;
-  font-size: 15px;
-  border: solid 2px black;
-  border-radius: 5px;
-  width: 100%;
-`;
-
-const InputGroup = styled.div`
-  width: 80%;
-  display: flex;
-  flex-direction: column;
-  margin: 16px 0 0;
-`;
-
-const Caption = styled.label`
-  padding: 5px 10px;
-  font-size: 12px;
-`;
-
 const DoubleInputGroup = styled.div`
   display: flex;
   justify-content: space-between;
   width: 80%;
 `;
 
-const SmallInputGroup = styled.div`
-  width: 48%;
-  display: flex;
-  flex-direction: column;
-  margin: 16px 0 0;
-`;
+const UpdateButton = styled(StyledButton)`
+  margin: 10px 10px 50px;
+  width: 80%;
 
-const SubmitButton = styled.button`
-  padding: 15px 25px;
-  margin: 40px 10px;
-  border: 0;
-  border-radius: 5px;
-  font-size: 15px;
-  box-shadow: 2px 2px grey;
-  text-transform: uppercase;
-  background-color: ${colors.primaryColor};
-  cursor: pointer;
-  color: white;
-  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  
-  &:hover {
-    font-weight: bold;
-  }
-  
-  &:active {
-    box-shadow: 0 0;
+  @media(max-width: 768px) {
+    margin: 10px 10px 30px;
   }
 `;
 
-const LogoutButton = styled.button`
-  padding: 15px 25px;
-  margin: 40px 10px 10px;
-  border: 1px solid ${colors.primaryColor};
-  border-radius: 5px;
-  font-size: 15px;
-  box-shadow: 2px 2px grey;
-  text-transform: uppercase;
-  background-color: transparent;
-  cursor: pointer;
-  color: ${colors.primaryColor};
-  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+const LogoutButton = styled(StyledButton)`
+  margin: 50px 10px 10px;
+  width: 80%;
 
-  &:hover {
-    font-weight: bold;
-  }
-  
-  &:active {
-    box-shadow: 0 0;
+  @media(max-width: 768px) {
+    margin: 30px 10px 10px;
   }
 `;
 
@@ -156,66 +95,61 @@ export default function MyProfile() {
         <title>Finncycle - My profile</title>
       </Head>
       <Container>
-        <h1>My Profile</h1>
-        <InputGroup>
-          <NotInputField>
-            The user email
-          </NotInputField>
-        </InputGroup>
-        <InputGroup>
-          <Caption htmlFor="name">Full Name *</Caption>
-          <InputField
-            id="name"
-            onChange={(e) => onInputValueChange(e)}
-            type="text"
-            name="name"
-            required
-          />
-        </InputGroup>
-        <InputGroup>
-          <Caption htmlFor="address">Address *</Caption>
-          <InputField
-            id="address"
-            onChange={(e) => onInputValueChange(e)}
-            type="text"
-            name="address"
-            required
-          />
-        </InputGroup>
-        <InputGroup>
-          <Caption htmlFor="zip-code">Zip Code *</Caption>
-          <InputField
-            id="zip-code"
-            onChange={(e) => onInputValueChange(e)}
-            type="number"
-            min="0"
-            name="zip-code"
-            required
-          />
-        </InputGroup>
+        <H1>My Profile</H1>
+        <InputGroup
+          value="carkbra@gmail.com"
+        />
+        <InputGroup
+          editable
+          label="Full name"
+          required
+          id="name"
+          type="text"
+          onInputChange={onInputValueChange}
+          value=""
+        />
+        <InputGroup
+          editable
+          label="Address"
+          required
+          id="address"
+          type="text"
+          onInputChange={onInputValueChange}
+          value=""
+        />
+        <InputGroup
+          editable
+          label="Zip Code"
+          required
+          id="zip-code"
+          type="number"
+          onInputChange={onInputValueChange}
+          value=""
+        />
         <DoubleInputGroup>
-          <SmallInputGroup>
-            <Caption htmlFor="city">City *</Caption>
-            <InputField
-              id="city"
-              onChange={(e) => onInputValueChange(e)}
-              type="text"
-              name="city"
-              required
-            />
-          </SmallInputGroup>
-          <SmallInputGroup>
-            <Caption htmlFor="country">Country *</Caption>
-            <InputField
-              id="country"
-              onChange={(e) => onInputValueChange(e)}
-              type="text"
-              name="country"
-              required
-            />
-          </SmallInputGroup>
+          <InputGroup
+            editable
+            label="City"
+            required
+            id="city"
+            type="text"
+            onInputChange={onInputValueChange}
+            value=""
+            small
+          />
+          <InputGroup
+            editable
+            label="Country"
+            required
+            id="country"
+            type="text"
+            onInputChange={onInputValueChange}
+            value=""
+            small
+          />
         </DoubleInputGroup>
-        <SubmitButton type="submit" onClick={() => null}>Update information</SubmitButton>
+
+        <UpdateButton type="submit" onClick={() => null} solid>Update information</UpdateButton>
 
         <StatsCyclesContainer>
           <GroupStat>
@@ -232,7 +166,7 @@ export default function MyProfile() {
           </GroupStat>
         </StatsCyclesContainer>
 
-        <LogoutButton type="button" onClick={() => null}>Logout</LogoutButton>
+        <LogoutButton type="button" onClick={() => null} outline>Logout</LogoutButton>
       </Container>
     </>
   )

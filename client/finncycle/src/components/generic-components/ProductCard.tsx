@@ -1,5 +1,4 @@
-import {StyledButton} from "../general-styled-components";
-import {IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {StyledButton} from "./general-styled-components";
 import styled from "styled-components";
 import {ReactElement} from "react";
 
