@@ -3,8 +3,8 @@ import { H1 } from "../../components/generic-components/general-styled-component
 import Head from "next/head";
 import styled from "styled-components";
 import Image from "next/image";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCircleInfo, faMoneyBillWave, faTruck} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleInfo, faMoneyBillWave, faTruck } from "@fortawesome/free-solid-svg-icons";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const productId = context.params ? context.params.product_id as string : 'not-valid';
@@ -32,7 +32,7 @@ const Container = styled.div`
   flex-direction: column;
   padding: 4%;
   width: 80%;
-  margin: 0 auto;
+  margin: 0 auto 30px;
 `;
 
 const Description = styled.div`
@@ -58,7 +58,7 @@ export default function ProductDetailsPage(props: ProductDetailsPageProps) {
       </Head>
       <Container>
         <H1>{productName}</H1>
-        <Image width="500" height="350" src={productImage} alt={productImage}/>
+        <Image width="300" height="150" src={productImage} alt={productImage}/>
         <Description>
           <b><FontAwesomeIcon icon={faCircleInfo}/> More about this product: </b><br /><br />
           {productDescription}

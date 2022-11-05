@@ -3,10 +3,10 @@ import Head from "next/head";
 import { faRecycle, faInfo } from "@fortawesome/free-solid-svg-icons";
 import ProductCard from "../../components/generic-components/ProductCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {H1, StyledButton} from "../../components/generic-components/general-styled-components";
+import { H1 } from "../../components/generic-components/general-styled-components";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import {router} from "next/client";
+import { useRouter } from "next/router";
 
 const Container = styled.div`
   display: flex;
@@ -37,6 +37,8 @@ const claimProduct = (id: string) => {
 }
 
 export default function AvailableProducts() {
+  const router = useRouter();
+
   return (
     <>
       <Head>
