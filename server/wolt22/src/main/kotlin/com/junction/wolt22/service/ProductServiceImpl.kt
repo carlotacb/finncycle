@@ -15,7 +15,7 @@ class ProductServiceImpl(
     private val TYPE_REUSE = "REUSE"
     private val TYPE_RECYCLE = "RECYCLE"
 
-    override fun createProduct(user : UsersEntity, productDTO: ProductDTO): Boolean {
+    override fun createProduct(user : UsersEntity, productDTO: ProductDTO): ProductEntity {
         val productEntity = ProductEntity(
                 name = productDTO.name,
                 description = productDTO.description,
@@ -26,8 +26,12 @@ class ProductServiceImpl(
         listProducts.add(productEntity)
         user.refProductEntity = listProducts
         productEntity.refUsersEntity = user
-        val entity = productRepository.saveAndFlush(productEntity)
-        return entity.id > -1
+        try {
+            val entity = productRepository.saveAndFlush(productEntity)
+            return entity
+        } catch (e : Exception){
+            throw RuntimeException()
+        }
     }
 
     @Throws(RuntimeException::class)

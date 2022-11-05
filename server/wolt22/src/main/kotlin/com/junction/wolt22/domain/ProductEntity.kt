@@ -20,7 +20,7 @@ open class ProductEntity(
 
     @get:Basic
     @get:Column(name = "type", nullable = true)
-    open var type: String? = null,
+    open var type: String = "",
 
 ) {
 

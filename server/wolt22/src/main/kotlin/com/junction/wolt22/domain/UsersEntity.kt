@@ -32,7 +32,15 @@ open var city: String? = null,
 
 @get:Basic
 @get:Column(name = "country", nullable = false)
-open var country: String? = null
+open var country: String? = null,
+
+@get:Basic
+@get:Column(name = "phone", nullable = false)
+open var phone: String = "",
+
+@get:Basic
+@get:Column(name = "apikey", nullable = false)
+open var apiKey: String = ""
         ){
     @get:Id
     @get:Column(name = "id", nullable = false, insertable = false, updatable = false)

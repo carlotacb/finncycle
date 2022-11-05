@@ -1,6 +1,7 @@
 package com.junction.wolt22.controller
 
 import com.junction.wolt22.beans.ProductDTO
+import com.junction.wolt22.service.CycleService
 import com.junction.wolt22.service.ProductService
 import com.junction.wolt22.service.UserService
 import org.springframework.http.HttpEntity
@@ -12,21 +13,30 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping(path = ["/product"])
 class ProductController (
     private val productService: ProductService,
-    private val userService: UserService
+    private val userService: UserService,
+    private val cycleService: CycleService
     ) {
 
-    @PostMapping("/{idUser}")
-    fun createProduct(@PathVariable("idUser") idUser: String, @RequestBody productDTO: ProductDTO) : ResponseEntity<Any> {
-        val user = userService.getUser(idUser)
-        val creat = productService.createProduct(user, productDTO)
-        if (creat) return ResponseEntity(HttpStatus.CREATED)
-        else return ResponseEntity(HttpStatus.BAD_REQUEST)
+    @PostMapping()
+    fun createProduct(@RequestParam("apiKey") apiKey: String, @RequestBody productDTO: ProductDTO) : ResponseEntity<Any> {
+        val user = userService.getUser(apiKey)
+        try {
+            val newProduct = productService.createProduct(user, productDTO)
+            val newCycle = cycleService.createNewCycle(newProduct)
+            if (newCycle) return ResponseEntity(HttpStatus.CREATED)
+            else return ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
+        } catch (e  : Exception) {
+            e.printStackTrace()
+            return ResponseEntity(HttpStatus.BAD_REQUEST)
+        }
+
     }
 
     @GetMapping("/{idProduct}")
