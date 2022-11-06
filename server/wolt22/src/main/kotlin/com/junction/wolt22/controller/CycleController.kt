@@ -8,14 +8,15 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping(path=["/cycles"])
+@CrossOrigin(origins = ["*"], methods = [RequestMethod.GET, RequestMethod.POST])
 class CycleController(
         private val cycleService: CycleService
 ) {
 
-    @GetMapping("/{userId}")
-    fun getUserCycles(@PathVariable("userId") userId : Int,) : ResponseEntity<Any>{
+    @GetMapping()
+    fun getUserCycles(@RequestParam("apikey") apikey: String) : ResponseEntity<Any>{
         try {
-            var cycles = cycleService.getUserCycles(userId)
+            var cycles = cycleService.getUserCycles(apikey)
             return ResponseEntity.ok(cycles)
         } catch (e : Exception) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
@@ -23,9 +24,9 @@ class CycleController(
     }
 
     @PostMapping()
-    fun claimCycle(@RequestParam("apikey") apiKey : String, @RequestParam("idCycle") idCycle : Int) : ResponseEntity<Any>{
+    fun claimCycle(@RequestParam("apikey") apikey : String, @RequestParam("idProduct") idProduct : Int) : ResponseEntity<Any>{
         try {
-            val created = cycleService.claimCycle(apiKey, idCycle)
+            val created = cycleService.claimCycle(apikey, idProduct)
             if (created) return ResponseEntity(HttpStatus.CREATED)
             return ResponseEntity(HttpStatus.OK)
         } catch (e : Exception) {
