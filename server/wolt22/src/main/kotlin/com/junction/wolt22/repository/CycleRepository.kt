@@ -9,4 +9,6 @@ interface CycleRepository : JpaRepository<CyclesEntity, Int> {
 
     @Query(nativeQuery = true, value = "Select * from cycles where user_id=:userId or recipient_id=:userId")
     fun obteCyclesDeUsuari(userId : Int) : List<CyclesEntity>
+
+    fun findByProductId(productId : Int) : CyclesEntity
 }

@@ -10,6 +10,7 @@ import com.junction.wolt22.beans.FeeResponse.FeeResponse
 import com.junction.wolt22.domain.CyclesEntity
 import com.junction.wolt22.domain.ProductEntity
 import com.junction.wolt22.repository.CycleRepository
+import com.junction.wolt22.repository.ProductRepository
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import java.net.URI
@@ -24,7 +25,7 @@ import java.time.format.DateTimeFormatter
 class CycleService(
         private val cycleRepository: CycleRepository,
         private val userService: UserService,
-        private val gson: Gson
+        private val gson: Gson,
 ) {
     private val STATUS_PENDING = "PENDING"
     private val STATUS_CLAIMED = "CLAIMED"
@@ -38,12 +39,15 @@ class CycleService(
     @Value("\${merchantid}")
     private lateinit var merchantid : String
 
-    fun getUserCycles(userId : Int) : ArrayList<CycleDTO>{
-        val listCyclesEntity = cycleRepository.obteCyclesDeUsuari(userId)
+    fun getUserCycles(apiKey: String) : ArrayList<CycleDTO>{
+        val user = userService.getUser(apiKey)
+        val listCyclesEntity = cycleRepository.obteCyclesDeUsuari(user.id)
         val listCycleDTO = arrayListOf<CycleDTO>()
 
         if (!listCyclesEntity.isNullOrEmpty()) {
+            var recipient = ""
             listCyclesEntity.forEach {
+                if (it.refUsersEntityRecipient?.name != null) recipient = it.refUsersEntityRecipient?.name!!
                 val cycleDTO = CycleDTO(
                     it.id,
                     it.productId!!,
@@ -51,7 +55,7 @@ class CycleService(
                     it.status,
                     it.refProductEntity?.type!!,
                     it.refUsersEntity?.name!!,
-                    it.refUsersEntityRecipient?.name!!,
+                    recipientName = recipient
                 )
                 listCycleDTO.add(cycleDTO)
             }
@@ -93,7 +97,6 @@ class CycleService(
         cycle.refUsersEntityRecipient = puntVerd
 
         val deliveryRespose = callDeliveryOrder_API_Wolt(cycle)
-
         cycle.dropoffTime = deliveryRespose.dropoff.eta
     }
 
@@ -174,8 +177,18 @@ class CycleService(
         return root
     }
 
-    fun claimCycle(apiKey : String, idCycle : Int) : Boolean {
-        TODO()
+    fun claimCycle(apiKey : String, idProduct : Int) : Boolean {
+        val user = userService.getUser(apiKey)
+        val cycle = cycleRepository.findByProductId(idProduct)
+
+        cycle.refUsersEntityRecipient = user
+
+        val response = callDeliveryOrder_API_Wolt(cycle)
+
+        cycle.dropoffTime = response.dropoff.eta
+        cycle.status = STATUS_CLAIMED
+
+        return !cycle.dropoffTime.isNullOrEmpty()
     }
 
     fun getDeliveryFee_API_Wolt(address1: String, address2: String) : Double {
@@ -183,7 +196,6 @@ class CycleService(
         val delivery_URL=BASE_URL+"/merchants/$merchantid/delivery-fee"
         val root = poblaJsonAPIWolt_DeliveryFee(address1,address2)
 
-        val objectMapper = ObjectMapper()
         val requestBody: String = gson.toJson(root)
 
         val client = HttpClient.newBuilder().build();

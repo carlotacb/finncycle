@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping(path = ["/user"])
+@CrossOrigin(origins = ["*"], methods = [RequestMethod.GET, RequestMethod.POST])
 class UserController (
     private val userService: UserService
         ){

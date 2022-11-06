@@ -7,5 +7,5 @@ data class CycleDTO(
     var status : String,
     var type : String,
     var userName : String,
-    var recipientName : String
+    var recipientName : String?
 )
