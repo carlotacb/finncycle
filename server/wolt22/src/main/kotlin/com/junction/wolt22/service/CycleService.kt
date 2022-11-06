@@ -2,6 +2,7 @@ package com.junction.wolt22.service
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
+import com.google.gson.internal.bind.util.ISO8601Utils
 import com.junction.wolt22.beans.CycleDTO
 import com.junction.wolt22.beans.DeliveryDTO.*
 import com.junction.wolt22.beans.DeliveryResponse.DeliveryResponseDTO
@@ -18,7 +19,9 @@ import java.net.URLEncoder
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
 import java.net.http.HttpResponse
+import java.text.SimpleDateFormat
 import java.time.LocalDateTime
+import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 
 @Service
@@ -97,7 +100,10 @@ class CycleService(
         cycle.refUsersEntityRecipient = puntVerd
 
         val deliveryRespose = callDeliveryOrder_API_Wolt(cycle)
-        cycle.dropoffTime = deliveryRespose.dropoff.eta
+
+        val dateformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSXXX'Z'")
+        val date = LocalDateTime.parse(deliveryRespose.dropoff.eta)
+        cycle.dropoffTime = date
     }
 
     fun callDeliveryOrder_API_Wolt(cycle: CyclesEntity) : DeliveryResponseDTO {
@@ -185,10 +191,13 @@ class CycleService(
 
         val response = callDeliveryOrder_API_Wolt(cycle)
 
-        cycle.dropoffTime = response.dropoff.eta
-        cycle.status = STATUS_CLAIMED
+        val f = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSXXX'Z'")
+        val date: LocalDateTime = LocalDateTime.parse(response.dropoff.eta, f);
 
-        return !cycle.dropoffTime.isNullOrEmpty()
+        cycle.dropoffTime = date
+        cycle.status = STATUS_CLAIMED
+        cycleRepository.saveAndFlush(cycle)
+        return cycle.dropoffTime != null
     }
 
     fun getDeliveryFee_API_Wolt(address1: String, address2: String) : Double {
