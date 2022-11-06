@@ -1,5 +1,6 @@
 package com.junction.wolt22.controller
 
+import com.junction.wolt22.beans.FeeAndProductDTO
 import com.junction.wolt22.beans.ProductDTO
 import com.junction.wolt22.service.CycleService
 import com.junction.wolt22.service.ProductService
@@ -49,8 +50,8 @@ class ProductController (
         }
     }
 
-    @PutMapping("/{idProduct}")
-    fun modifyProduct(@PathVariable("idProduct") idProduct: Int, @RequestBody product : ProductDTO) : ResponseEntity<Any>{
+    @PutMapping()
+    fun modifyProduct(@RequestParam("idProduct") idProduct: Int, @RequestBody product : ProductDTO) : ResponseEntity<Any>{
         try {
             val productModificat = productService.modifyProduct(idProduct, product)
             return ResponseEntity.ok(productModificat)
@@ -60,10 +61,11 @@ class ProductController (
     }
 
     // display all products that are not owned by the user that requests it
-    @GetMapping("/all/{userId}")
-    fun getAllProducts(@PathVariable("userId") userId: Int) : ResponseEntity<ArrayList<ProductDTO>>{
+    @GetMapping("/all")
+    fun getAllProducts(@RequestParam("apiKey") apiKey: String) : ResponseEntity<ArrayList<FeeAndProductDTO>>{
+        val user = userService.getUser(apiKey)
         try {
-            val allproducts = productService.getAllProductOf(userId)
+            val allproducts = productService.getAllProductOf(user)
             return ResponseEntity.ok(allproducts)
         } catch (e : Exception) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)

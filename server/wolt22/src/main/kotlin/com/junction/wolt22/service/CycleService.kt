@@ -5,6 +5,8 @@ import com.google.gson.Gson
 import com.junction.wolt22.beans.CycleDTO
 import com.junction.wolt22.beans.DeliveryDTO.*
 import com.junction.wolt22.beans.DeliveryResponse.DeliveryResponseDTO
+import com.junction.wolt22.beans.FeeDTO.FeeDTO
+import com.junction.wolt22.beans.FeeResponse.FeeResponse
 import com.junction.wolt22.domain.CyclesEntity
 import com.junction.wolt22.domain.ProductEntity
 import com.junction.wolt22.repository.CycleRepository
@@ -15,6 +17,8 @@ import java.net.URLEncoder
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
 import java.net.http.HttpResponse
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 @Service
 class CycleService(
@@ -65,7 +69,7 @@ class CycleService(
         cycleEntity.refProductEntity = product
         cycleEntity = cycleRepository.saveAndFlush(cycleEntity)
 
-        var listCyclesProduct = mutableListOf<CyclesEntity>()
+        val listCyclesProduct = mutableListOf<CyclesEntity>()
         listCyclesProduct.add(cycleEntity)
 
         product.refCyclesEntities = listCyclesProduct
@@ -83,13 +87,17 @@ class CycleService(
 
     fun createRecycleCycle(cycle : CyclesEntity) {
         // find punt verd
-        // assigna punt verd recipientId
-        // id = -1 -> punt verd
-        callDeliveryOrder_API_Wolt(cycle)
-        // esbrinar que fem amb el response i les adreces
+
+        val puntVerd = userService.getUserById(-4);
+
+        cycle.refUsersEntityRecipient = puntVerd
+
+        val deliveryRespose = callDeliveryOrder_API_Wolt(cycle)
+
+        cycle.dropoffTime = deliveryRespose.dropoff.eta
     }
 
-    fun callDeliveryOrder_API_Wolt(cycle: CyclesEntity) {
+    fun callDeliveryOrder_API_Wolt(cycle: CyclesEntity) : DeliveryResponseDTO {
         // get usuari recipient
         val delivery_URL=BASE_URL+"/merchants/$merchantid/delivery-order"
         val root = poblaJsonAPIWolt_DeliveryOrder(cycle)
@@ -108,10 +116,10 @@ class CycleService(
         val response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
         val responseParsed = gson.fromJson(response.body(), DeliveryResponseDTO::class.java)
+        return responseParsed
     }
 
     fun poblaJsonAPIWolt_DeliveryOrder(cycle : CyclesEntity) : Root{
-
 
         val contactDetails = Contact_details(
             cycle.refUsersEntity?.name,
@@ -128,12 +136,12 @@ class CycleService(
 
         val dropoff = Dropoff(
             Location(
-                "Ämmässuontie 8, 02820 Espoo"
+                "${cycle.refUsersEntityRecipient?.address}, ${cycle.refUsersEntityRecipient?.postalCode} ${cycle.refUsersEntityRecipient?.city}"
             ),
             comment = "Knock Knock",
             Contact_details(
-                "Sortti-asema Ämmässuo",
-                "+3580915612110",
+                cycle.refUsersEntityRecipient?.name,
+                cycle.refUsersEntityRecipient?.phone,
                 false
             )
         )
@@ -166,12 +174,46 @@ class CycleService(
         return root
     }
 
-    fun String.utf8(): String = URLEncoder.encode(this, "UTF-8")
-    fun formData(data: Map<String, String>): HttpRequest.BodyPublisher? {
+    fun claimCycle(apiKey : String, idCycle : Int) : Boolean {
+        TODO()
+    }
 
-        val res = data.map {(k, v) -> "${(k.utf8())}=${v.utf8()}"}
-            .joinToString("&")
+    fun getDeliveryFee_API_Wolt(address1: String, address2: String) : Double {
+        // get usuari recipient
+        val delivery_URL=BASE_URL+"/merchants/$merchantid/delivery-fee"
+        val root = poblaJsonAPIWolt_DeliveryFee(address1,address2)
 
-        return HttpRequest.BodyPublishers.ofString(res)
+        val objectMapper = ObjectMapper()
+        val requestBody: String = gson.toJson(root)
+
+        val client = HttpClient.newBuilder().build();
+        val request = HttpRequest.newBuilder()
+                .uri(URI.create(delivery_URL))
+                .header("Content-Type", "application/json")
+                .header("Authorization", "Bearer $apiKey")
+                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                .build()
+
+        val response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        val responseParsed = gson.fromJson(response.body(), FeeResponse::class.java)
+        return responseParsed.fee.amount / 100.0
+    }
+
+    fun poblaJsonAPIWolt_DeliveryFee (address1: String, address2: String) : FeeDTO {
+        val pickup = com.junction.wolt22.beans.FeeDTO.Pickup(
+                Location(
+                        address1
+                )
+        )
+        val dropoff = com.junction.wolt22.beans.FeeDTO.Dropoff(
+                Location(
+                address2
+            )
+        )
+        return FeeDTO(
+               pickup,
+               dropoff = dropoff
+        )
     }
 }

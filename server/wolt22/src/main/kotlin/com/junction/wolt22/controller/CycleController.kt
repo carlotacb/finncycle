@@ -4,12 +4,7 @@ import com.junction.wolt22.beans.CycleDTO
 import com.junction.wolt22.service.CycleService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping(path=["/cycles"])
@@ -27,11 +22,11 @@ class CycleController(
         }
     }
 
-    @PostMapping("/{idCycle}")
-    fun claimCycle(@PathVariable("idCycle") idCycle : Int, @RequestBody cycleDTO: CycleDTO) : ResponseEntity<Any>{
+    @PostMapping()
+    fun claimCycle(@RequestParam("apikey") apiKey : String, @RequestParam("idCycle") idCycle : Int) : ResponseEntity<Any>{
         try {
-            //TODO val created = cycleService.claimCycle(idCycle, cycleDTO)
-            //TODO if (created) return ResponseEntity(HttpStatus.CREATED)
+            val created = cycleService.claimCycle(apiKey, idCycle)
+            if (created) return ResponseEntity(HttpStatus.CREATED)
             return ResponseEntity(HttpStatus.OK)
         } catch (e : Exception) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)

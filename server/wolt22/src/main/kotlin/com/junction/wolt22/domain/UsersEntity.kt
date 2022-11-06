@@ -24,7 +24,7 @@ open var address: String? = null,
 
 @get:Basic
 @get:Column(name = "postal_code", nullable = false)
-open var postalCode: Int? = null,
+open var postalCode: String? = null,
 
 @get:Basic
 @get:Column(name = "city", nullable = false)
