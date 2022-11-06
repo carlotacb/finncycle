@@ -74,7 +74,6 @@ class ProductServiceImpl(
                 producteAModificar.image,
                 producteAModificar.type
             )
-
         } else {
             throw RuntimeException()
         }

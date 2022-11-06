@@ -21,9 +21,9 @@ open class CyclesEntity(
 
     @get:Basic
     @get:Column(name = "dropoff_time", nullable = true, insertable = true, updatable = true)
-    open var dropoffTime: String? = null,
+    open var dropoffTime: LocalDateTime? = LocalDateTime.now(),
 
-) {
+    ) {
     @get:Id
     @get:Column(name = "id", nullable = false)
     @get:SequenceGenerator(name="idCycleGenerator", sequenceName = "transaction_id_seq", allocationSize = 1)
