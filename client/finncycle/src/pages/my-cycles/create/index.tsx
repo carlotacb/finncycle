@@ -1,9 +1,5 @@
-import Head from "next/head";
 import {H1, StyledButton} from "../../../components/generic-components/general-styled-components";
 import InputGroup from "../../../components/generic-components/InputGroup";
-import {colors} from "../../../constants/global-styles";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faHandshake, faLightbulb, faTree} from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import {BaseSyntheticEvent} from "react";
 
@@ -12,6 +8,7 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   padding: 4%;
+  height: 85vh;
 `;
 
 const CreateProductButton = styled(StyledButton)`
