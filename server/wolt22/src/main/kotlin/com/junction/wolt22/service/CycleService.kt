@@ -228,4 +228,60 @@ class CycleService(
                dropoff = dropoff
         )
     }
+
+    fun getOutgoing(apikey: String): List<CycleDTO> {
+        val user = userService.getUser(apikey)
+        val result = arrayListOf<CycleDTO>()
+        cycleRepository.findAllOutgoing(user.id).forEach{
+            result.add(CycleDTO(
+                it.id,
+                it.refProductEntity?.id!!,
+                it.refProductEntity?.name!!,
+                it.status,
+                it.refProductEntity?.type!!,
+                it.refUsersEntity?.name!!,
+                it.refUsersEntityRecipient?.name
+            )
+            )
+        }
+
+        return result
+    }
+
+    fun getIncoming(apikey: String): List<CycleDTO> {
+        val user = userService.getUser(apikey)
+        val result = arrayListOf<CycleDTO>()
+        cycleRepository.findAllIncoming(user.id).forEach{
+            result.add(CycleDTO(
+                it.id,
+                it.refProductEntity?.id!!,
+                it.refProductEntity?.name!!,
+                it.status,
+                it.refProductEntity?.type!!,
+                it.refUsersEntity?.name!!,
+                it.refUsersEntityRecipient?.name
+            )
+            )
+        }
+        return result
+    }
+
+    fun getRecycled(apikey: String): List<CycleDTO> {
+        val user = userService.getUser(apikey)
+        val result = arrayListOf<CycleDTO>()
+        cycleRepository.findAllRecycled(user.id).forEach {
+            result.add(CycleDTO(
+                it.id,
+                it.refProductEntity?.id!!,
+                it.refProductEntity?.name!!,
+                it.status,
+                it.refProductEntity?.type!!,
+                it.refUsersEntity?.name!!,
+                it.refUsersEntityRecipient?.name
+            )
+            )
+
+        }
+        return result
+    }
 }
