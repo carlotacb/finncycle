@@ -32,6 +32,20 @@ class UserService (
         else throw Exception()
     }
 
+    fun login(email : String, password : String): String {
+        val user = userRepository.findByEmail(email)
+        if (user.isPresent) {
+            val pass = user.get().password
+            if (pass == password) {
+                return generateApiKey(user.get())
+            }
+            else return "1"
+        }
+        else {
+            return "2"
+        }
+    }
+
     fun login(loginDTO: LoginDTO): String {
         val user = userRepository.findByEmail(loginDTO.email)
         if (user.isPresent) {
