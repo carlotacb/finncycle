@@ -25,12 +25,19 @@ class UserController (
 
     // Login of a user
     @GetMapping(path = ["/login"])
-    fun loginUser(@RequestBody user : LoginDTO) : ResponseEntity<Any> {
-        val res = userService.login(user)
+    fun loginUser(@RequestParam email: String, @RequestParam password: String) : ResponseEntity<Any> {
+        val res = userService.login(email, password)
         if (res == "1") return ResponseEntity(HttpStatus.FORBIDDEN)
         else if (res == "2") return ResponseEntity(HttpStatus.NOT_FOUND)
         else return ResponseEntity(res, HttpStatus.OK)
     }
+//    @GetMapping(path = ["/login"])
+//    fun loginUser(@RequestBody user : LoginDTO) : ResponseEntity<Any> {
+//        val res = userService.login(user)
+//        if (res == "1") return ResponseEntity(HttpStatus.FORBIDDEN)
+//        else if (res == "2") return ResponseEntity(HttpStatus.NOT_FOUND)
+//        else return ResponseEntity(res, HttpStatus.OK)
+//    }
 
     // Logout of a user
     @PostMapping(path = ["/logout"])
