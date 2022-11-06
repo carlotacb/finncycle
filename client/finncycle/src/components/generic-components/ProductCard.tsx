@@ -1,6 +1,6 @@
-import {StyledButton} from "./general-styled-components";
+import { StyledButton } from "./general-styled-components";
 import styled from "styled-components";
-import {ReactElement} from "react";
+import { ReactElement } from "react";
 
 const Container = styled.div`
   padding: 20px;
@@ -42,10 +42,11 @@ interface ProductCardProps {
   readonly solidButton?: boolean;
   readonly solidButtonText?: string;
   readonly solidButtonIcon?: ReactElement;
+  readonly solidButtonOnClick?: () => void;
   readonly outlineButton?: boolean;
   readonly outlineButtonText?: string;
   readonly outlineButtonIcon?: ReactElement;
-  readonly status?: string;
+  readonly outlineButtonOnClick?: () => void;
 }
 
 export default function ProductCard(props: ProductCardProps){
@@ -53,11 +54,12 @@ export default function ProductCard(props: ProductCardProps){
     productName,
     solidButtonText,
     solidButtonIcon,
+    solidButtonOnClick,
     solidButton,
     outlineButtonIcon,
     outlineButtonText,
-    outlineButton,
-    status
+    outlineButtonOnClick,
+    outlineButton
   } = props;
 
   return (
@@ -65,18 +67,14 @@ export default function ProductCard(props: ProductCardProps){
       <ProductName>{productName}</ProductName>
       <GroupButtons>
         {solidButton ?
-          <ButtonWithIcon type="button" solid>
+          <ButtonWithIcon type="button" solid onClick={solidButtonOnClick}>
             {solidButtonText ? solidButtonText : null }
             {solidButtonIcon ? solidButtonIcon : null }
           </ButtonWithIcon> :
           null
         }
-        {status ?
-          <div>{status}</div>:
-          null
-        }
         {outlineButton ?
-          <ButtonWithIcon type="button" outline>
+          <ButtonWithIcon type="button" outline onClick={outlineButtonOnClick}>
             {outlineButtonText ? outlineButtonText : null }
             {outlineButtonIcon ? outlineButtonIcon : null }
           </ButtonWithIcon> :

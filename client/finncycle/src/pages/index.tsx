@@ -1,8 +1,17 @@
+import React from 'react';
+import {GetServerSidePropsContext} from "next";
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  return {
+    redirect: {
+      destination: `/login`,
+      permanent: false,
+    },
+  };
+}
 
 export default function Home() {
   return (
-    <div>
-      <h1>This is the test</h1>
-    </div>
+    <h1>Test</h1>
   )
 }

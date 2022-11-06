@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import {BaseSyntheticEvent} from "react";
 
+export interface DropdownOptions {
+  readonly id: string;
+  readonly display: string;
+}
+
 interface InputGroupProps {
   readonly label?: string;
   readonly required?: boolean;
@@ -10,6 +15,10 @@ interface InputGroupProps {
   readonly onInputChange?: (event: BaseSyntheticEvent) => void;
   readonly editable?: boolean;
   readonly small?: boolean;
+  readonly isTextArea?: boolean;
+  readonly isDropdown?: boolean;
+  readonly isInputType?: boolean;
+  readonly options?: DropdownOptions[];
 }
 
 const Container = styled.div<{small?: boolean}>`
@@ -36,6 +45,22 @@ const InputField = styled.input`
   width: 100%;
 `;
 
+const TextAreaField = styled.textarea`
+  padding: 10px;
+  font-size: 15px;
+  border: solid 2px black;
+  border-radius: 5px;
+  width: 100%;
+`;
+
+const SelectedOption = styled.select`
+  padding: 10px;
+  font-size: 15px;
+  border: solid 2px black;
+  border-radius: 5px;
+  width: 100%;
+`;
+
 const NotEditableInputField = styled.div`
   padding: 10px;
   font-size: 15px;
@@ -55,7 +80,11 @@ export default function InputGroup(props: InputGroupProps) {
     type,
     editable,
     value,
-    small
+    small,
+    isTextArea,
+    isDropdown,
+    isInputType,
+    options
   } = props;
 
   return (
@@ -67,14 +96,33 @@ export default function InputGroup(props: InputGroupProps) {
             {' '}
             {required ? '*' : null}
           </Caption>
-          <InputField
-            id={id}
-            onChange={onInputChange}
-            type={type}
-            value={value}
-            name={id}
-            required={required}
-          />
+          { isTextArea ?
+            <TextAreaField
+              rows={4}
+              id={id}
+              onChange={onInputChange}
+              value={value}
+              name={id}
+              required={required}
+            /> : null }
+          { isInputType ?
+            <InputField
+              id={id}
+              onChange={onInputChange}
+              type={type}
+              value={value}
+              name={id}
+              required={required}
+            /> : null }
+          { isDropdown ?
+            <SelectedOption onChange={onInputChange} value={value}>
+              {options?.map((optionList: DropdownOptions) => (
+                <option value={optionList.id} key={optionList.id}>
+                  { optionList.display }
+                </option>
+              ))}
+            </SelectedOption>
+            : null }
         </>
         :
         <NotEditableInputField>
