@@ -1,6 +1,6 @@
 package com.junction.wolt22.controller
 
-import com.junction.wolt22.beans.LoginDTO
+import com.junction.wolt22.beans.UpdateUserDTO
 import com.junction.wolt22.domain.UsersEntity
 import com.junction.wolt22.service.UserService
 import org.springframework.http.HttpStatus
@@ -51,9 +51,9 @@ class UserController (
 
     // Updates information about a user
    @PostMapping(path = ["/update"])
-   fun updateUser(@RequestParam apiKey : String, @RequestBody user: UsersEntity) : ResponseEntity<Any> {
+   fun updateUser(@RequestParam apiKey : String, @RequestBody user: UpdateUserDTO) : ResponseEntity<Any> {
        if (userService.authenticateUser(apiKey)) {
-           val res = userService.updateUser(user)
+           val res = userService.updateUser(user, apiKey)
            if (res) return ResponseEntity(HttpStatus.OK)
            else return ResponseEntity(HttpStatus.BAD_REQUEST)
        }

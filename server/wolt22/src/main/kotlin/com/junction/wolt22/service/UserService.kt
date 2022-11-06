@@ -1,6 +1,7 @@
 package com.junction.wolt22.service
 
 import com.junction.wolt22.beans.LoginDTO
+import com.junction.wolt22.beans.UpdateUserDTO
 import com.junction.wolt22.beans.UserDTO
 import com.junction.wolt22.domain.UsersEntity
 import com.junction.wolt22.repository.UserRepository
@@ -76,9 +77,14 @@ class UserService (
         } else return ""
     }
 
-    fun updateUser(user: UsersEntity) : Boolean {
-        println(user)
-        val entity = userRepository.saveAndFlush(user)
+    fun updateUser(user: UpdateUserDTO, apiKey: String) : Boolean {
+        val user2 = userRepository.findByApiKey(apiKey).get()
+        user2.name = user.name
+        user2.address = user.address
+        user2.postalCode = user.postalCode
+        user2.city = user.city
+        user2.country = user.country
+        val entity = userRepository.saveAndFlush(user2)
         return entity.id > -1
     }
 
@@ -94,7 +100,7 @@ class UserService (
         val reused = userRepository.countUsedItems(userDB.id)
         val recycled = userRepository.countRecycledItems(userDB.id)
         val claimed = userRepository.countClaimedItems(userDB.id)
-        return UserDTO(userDB.name, userDB.city, userDB.address, userDB.country, userDB.postalCode, userDB.phone,
-            userDB.apiKey, reused, recycled, claimed)
+        return UserDTO(userDB.name, userDB.email, userDB.address, userDB.country, userDB.postalCode, userDB.phone,
+            userDB.city, reused, recycled, claimed)
     }
 }
