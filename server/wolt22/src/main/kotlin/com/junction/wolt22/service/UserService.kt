@@ -20,8 +20,8 @@ class UserService (
     }
 
     @Throws(java.lang.Exception::class)
-    fun getUser(idUser : String) : UsersEntity {
-        val user = userRepository.findById(idUser.toInt())
+    fun getUser(apikey : String) : UsersEntity {
+        val user = userRepository.findByApiKey(apikey)
         if (user.isPresent) return user.get()
         else throw RuntimeException()
     }

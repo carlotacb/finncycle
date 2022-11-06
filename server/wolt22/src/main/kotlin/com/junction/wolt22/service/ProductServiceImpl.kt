@@ -1,5 +1,6 @@
 package com.junction.wolt22.service
 
+import com.junction.wolt22.beans.FeeAndProductDTO
 import com.junction.wolt22.beans.ProductDTO
 import com.junction.wolt22.domain.ProductEntity
 import com.junction.wolt22.domain.UsersEntity
@@ -9,7 +10,8 @@ import kotlin.jvm.Throws
 
 @Service
 class ProductServiceImpl(
-        private val productRepository: ProductRepository
+        private val productRepository: ProductRepository,
+        private val cycleService: CycleService,
 ) : ProductService {
 
     private val TYPE_REUSE = "REUSE"
@@ -78,17 +80,21 @@ class ProductServiceImpl(
         }
     }
 
-    override fun getAllProductOf(userId: Int): ArrayList<ProductDTO> {
+    override fun getAllProductOf(user: UsersEntity): ArrayList<FeeAndProductDTO> {
         var products = productRepository.findAll()
-        var filteredProducts = arrayListOf<ProductDTO>();
+        var filteredProducts = arrayListOf<FeeAndProductDTO>();
         products.forEach(fun (product : ProductEntity){
-            if(product.refUsersEntity?.id != userId){
-                filteredProducts.add(ProductDTO(
+            if(product.refUsersEntity?.id != user.id){
+                var address1 = product.refUsersEntity?.address
+                var address2 = user.address
+                var fee = cycleService.getDeliveryFee_API_Wolt(address1!!, address2!!)
+                filteredProducts.add(FeeAndProductDTO(
                     id = product.id,
                     name = product.name,
                     description = product.description,
                     image = product.image,
-                    type = product.type
+                    type = product.type,
+                    fee = fee
                 ))
             }
         })
