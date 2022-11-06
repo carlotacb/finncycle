@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Head from "next/head";
 import {H1, StyledButton} from "../../components/generic-components/general-styled-components";
 import CycleCard from "../../components/generic-components/CycleCard";
+import {useRouter} from "next/router";
 
 const CenteredHeader = styled(H1)`
   text-align: center;
@@ -46,6 +47,8 @@ const ButtonForFilter = styled(StyledButton)`
 `;
 
 export default function MyCycles() {
+  const router = useRouter();
+
   return (
     <>
       <Head>
@@ -54,7 +57,9 @@ export default function MyCycles() {
       <Container>
         <CenteredHeader>Cycles List</CenteredHeader>
         <ButtonToTheRight>
-          <StyledButton solid>Start new cycle</StyledButton>
+          <StyledButton solid onClick={() => {
+            router.push('/my-cycles/create');
+          }}>Start new cycle</StyledButton>
         </ButtonToTheRight>
         <FilterButtons>
           <ButtonForFilter solid>All</ButtonForFilter>

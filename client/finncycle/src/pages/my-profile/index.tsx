@@ -107,6 +107,7 @@ export default function MyProfile() {
           type="text"
           onInputChange={onInputValueChange}
           value=""
+          isInputType
         />
         <InputGroup
           editable
@@ -116,6 +117,7 @@ export default function MyProfile() {
           type="text"
           onInputChange={onInputValueChange}
           value=""
+          isInputType
         />
         <InputGroup
           editable
@@ -125,6 +127,7 @@ export default function MyProfile() {
           type="number"
           onInputChange={onInputValueChange}
           value=""
+          isInputType
         />
         <DoubleInputGroup>
           <InputGroup
@@ -136,6 +139,7 @@ export default function MyProfile() {
             onInputChange={onInputValueChange}
             value=""
             small
+            isInputType
           />
           <InputGroup
             editable
@@ -146,6 +150,7 @@ export default function MyProfile() {
             onInputChange={onInputValueChange}
             value=""
             small
+            isInputType
           />
         </DoubleInputGroup>
 
