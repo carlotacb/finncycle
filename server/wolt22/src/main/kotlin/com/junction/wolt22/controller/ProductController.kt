@@ -49,8 +49,8 @@ class ProductController (
         }
     }
 
-    @PutMapping("/{idProduct}")
-    fun modifyProduct(@PathVariable("idProduct") idProduct: Int, @RequestBody product : ProductDTO) : ResponseEntity<Any>{
+    @PutMapping()
+    fun modifyProduct(@RequestParam("idProduct") idProduct: Int, @RequestBody product : ProductDTO) : ResponseEntity<Any>{
         try {
             val productModificat = productService.modifyProduct(idProduct, product)
             return ResponseEntity.ok(productModificat)

@@ -5,7 +5,7 @@ data class UserDTO(
     val email : String?,
     val address : String?,
     val country : String?,
-    val postalCode : Int?,
+    val postalCode : String?,
     val phone : String?,
     val apiKey : String?,
     val reused : Int,

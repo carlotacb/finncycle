@@ -1,5 +1,6 @@
 package com.junction.wolt22.domain
 
+import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
@@ -16,7 +17,11 @@ open class CyclesEntity(
 
     @get:Basic
     @get:Column(name = "product_id", nullable = false, insertable = false, updatable = false)
-    open var productId: Int? = null
+    open var productId: Int? = null,
+
+    @get:Basic
+    @get:Column(name = "dropoff_time", nullable = true, insertable = true, updatable = true)
+    open var dropoffTime: String? = null,
 
 ) {
     @get:Id
