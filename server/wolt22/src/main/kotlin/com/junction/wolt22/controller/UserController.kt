@@ -62,7 +62,7 @@ class UserController (
    }
 
     // Get user profile information
-    @PostMapping(path = ["/profile"])
+    @GetMapping(path = ["/profile"])
     fun getUserInfo(@RequestParam apiKey: String) : ResponseEntity<Any> {
         if (userService.authenticateUser(apiKey)) {
             return ResponseEntity(userService.getUserInfo(apiKey),HttpStatus.OK)
