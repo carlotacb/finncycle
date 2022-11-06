@@ -5,6 +5,8 @@ import com.google.gson.Gson
 import com.junction.wolt22.beans.CycleDTO
 import com.junction.wolt22.beans.DeliveryDTO.*
 import com.junction.wolt22.beans.DeliveryResponse.DeliveryResponseDTO
+import com.junction.wolt22.beans.FeeDTO.FeeDTO
+import com.junction.wolt22.beans.FeeResponse.FeeResponse
 import com.junction.wolt22.domain.CyclesEntity
 import com.junction.wolt22.domain.ProductEntity
 import com.junction.wolt22.repository.CycleRepository
@@ -176,5 +178,42 @@ class CycleService(
         TODO()
     }
 
+    fun getDeliveryFee_API_Wolt(address1: String, address2: String) : Double {
+        // get usuari recipient
+        val delivery_URL=BASE_URL+"/merchants/$merchantid/delivery-fee"
+        val root = poblaJsonAPIWolt_DeliveryFee(address1,address2)
 
+        val objectMapper = ObjectMapper()
+        val requestBody: String = gson.toJson(root)
+
+        val client = HttpClient.newBuilder().build();
+        val request = HttpRequest.newBuilder()
+                .uri(URI.create(delivery_URL))
+                .header("Content-Type", "application/json")
+                .header("Authorization", "Bearer $apiKey")
+                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                .build()
+
+        val response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        val responseParsed = gson.fromJson(response.body(), FeeResponse::class.java)
+        return responseParsed.fee.amount / 100.0
+    }
+
+    fun poblaJsonAPIWolt_DeliveryFee (address1: String, address2: String) : FeeDTO {
+        val pickup = com.junction.wolt22.beans.FeeDTO.Pickup(
+                Location(
+                        address1
+                )
+        )
+        val dropoff = com.junction.wolt22.beans.FeeDTO.Dropoff(
+                Location(
+                address2
+            )
+        )
+        return FeeDTO(
+               pickup,
+               dropoff = dropoff
+        )
+    }
 }
