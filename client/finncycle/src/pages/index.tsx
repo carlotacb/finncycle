@@ -1,8 +1,29 @@
+import React from 'react';
+import {GetServerSidePropsContext} from "next";
+import {getSession} from "../constants/utils";
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  if (getSession() != null) {
+    return {
+      redirect: {
+        destination: `/available-products`,
+        permanent: false,
+      },
+    };
+  }
+
+  else {
+    return {
+      redirect: {
+        destination: `/login`,
+        permanent: false,
+      },
+    };
+  }
+}
 
 export default function Home() {
   return (
-    <div>
-      <h1>This is the test</h1>
-    </div>
+    <h1>Test</h1>
   )
 }
