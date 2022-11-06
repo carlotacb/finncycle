@@ -11,7 +11,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   // TODO the information from the product is retrieved here from the backend
   const productImage = "/test-image.jpeg"
-  const productName = "Test product"
+  const productName = productId
   const productDescription = "This is a test description to check that the app is working as expected"
   const productDeliveryFee = "3.45"
 
@@ -65,7 +65,7 @@ export default function ProductDetailsPage(props: ProductDetailsPageProps) {
         </Description>
         <Description>
           <b><FontAwesomeIcon icon={faMoneyBillWave}/> What I need to pay:</b><br /><br />
-          For this exchange you only need to pay for the delivery, the rest is free, make a the world better by reusing things! The only thing you need to do is also create cycles, create some cycles to make things have a second life and claim products, also for that.
+          For this exchange you only need to pay for the delivery, the rest is free, make the world better by reusing things! The only thing you need to do is create some cycles to make things have a second life. Also, you can claim cycles from other people and reuse even more!
         </Description>
         <Description>
           <b><FontAwesomeIcon icon={faTruck}/> Delivery:</b><br /><br />

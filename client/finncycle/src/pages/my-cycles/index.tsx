@@ -55,7 +55,7 @@ export default function MyCycles() {
         <title>Finncycle - My cycles</title>
       </Head>
       <Container>
-        <CenteredHeader>Cycles List</CenteredHeader>
+        <CenteredHeader>Cycle Contributions</CenteredHeader>
         <ButtonToTheRight>
           <StyledButton solid onClick={() => {
             router.push('/my-cycles/create');
@@ -69,18 +69,23 @@ export default function MyCycles() {
         </FilterButtons>
         <ProductsList>
           <CycleCard
-            productName="Product Name"
-            productDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras facilisis malesuada ultricies. Integer ligula dui, sodales id mauris quis, aliquam rutrum mauris. Curabitur eros mi, scelerisque quis suscipit ut, commodo a ligula. Nulla posuere dapibus ornare. In dapibus turpis in sodales dignissim. Vivamus at nunc quis arcu porttitor sagittis vitae nec urna. Duis pellentesque urna eu sem ultrices, vitae tincidunt risus sagittis. Etiam rutrum erat in lacus cursus, at fermentum lacus fermentum. Vivamus quis nisl nisl. Nunc id arcu eros. Aenean eu rutrum neque. Etiam eu scelerisque nulla, sed posuere ligula. Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur mauris purus, sodales ac auctor vel, pretium eleifend quam."
+            productName="Samsung S8 Phone"
+            productDescription="Used it in the past, now it cooks perfect but I'm doing an upgrade"
             status="Pending"
           />
           <CycleCard
-            productName="Product Name"
-            productDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras facilisis malesuada ultricies. Integer ligula dui, sodales id mauris quis, aliquam rutrum mauris. Curabitur eros mi, scelerisque quis suscipit ut, commodo a ligula. Nulla posuere dapibus ornare. In dapibus turpis in sodales dignissim. Vivamus at nunc quis arcu porttitor sagittis vitae nec urna. Duis pellentesque urna eu sem ultrices, vitae tincidunt risus sagittis. Etiam rutrum erat in lacus cursus, at fermentum lacus fermentum. Vivamus quis nisl nisl. Nunc id arcu eros. Aenean eu rutrum neque. Etiam eu scelerisque nulla, sed posuere ligula. Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur mauris purus, sodales ac auctor vel, pretium eleifend quam."
+            productName="Bluetooth Speaker"
+            productDescription="I have made partys with it and its reliable. Now I want to give it to someone who wants to enjoy music too. For further questions search Ultimate Ears MEGABOOM 3 Wireless Bluetooth Speaker"
+            status="Pending"
+          />
+          <CycleCard
+            productName="Electric Scooter"
+            productDescription="Really fast Scooter, in great shape still. Ideal to traverse Helsinki"
             status="Delivered"
           />
           <CycleCard
-            productName="Product Name"
-            productDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras facilisis malesuada ultricies. Integer ligula dui, sodales id mauris quis, aliquam rutrum mauris. Curabitur eros mi, scelerisque quis suscipit ut, commodo a ligula. Nulla posuere dapibus ornare. In dapibus turpis in sodales dignissim. Vivamus at nunc quis arcu porttitor sagittis vitae nec urna. Duis pellentesque urna eu sem ultrices, vitae tincidunt risus sagittis. Etiam rutrum erat in lacus cursus, at fermentum lacus fermentum. Vivamus quis nisl nisl. Nunc id arcu eros. Aenean eu rutrum neque. Etiam eu scelerisque nulla, sed posuere ligula. Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur mauris purus, sodales ac auctor vel, pretium eleifend quam."
+            productName="Computer Monitor 70Hz"
+            productDescription="47,32inch monitor in good condition. 75hz refresh rate 1440p resolution"
             status="Claimed"
           />
         </ProductsList>

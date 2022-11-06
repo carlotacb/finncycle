@@ -47,7 +47,7 @@ export default function AvailableProducts() {
       <Container>
         <H1>Second Life Wait List</H1>
         <ProductCard
-          productName="Product Name"
+          productName="Chair"
           solidButton
           solidButtonIcon={<FontAwesomeIcon icon={faRecycle}/>}
           solidButtonOnClick={() => openModal("test")}
@@ -55,11 +55,11 @@ export default function AvailableProducts() {
           outlineButton
           outlineButtonIcon={<FontAwesomeIcon icon={faInfo}/>}
           outlineButtonOnClick={() => {
-            router.push('/available-products/test');
+            router.push('/available-products/fridge');
           }}
         />
         <ProductCard
-          productName="Product Name"
+          productName="Laptop"
           solidButton
           solidButtonIcon={<FontAwesomeIcon icon={faRecycle}/>}
           solidButtonOnClick={() => openModal("test")}
@@ -67,11 +67,11 @@ export default function AvailableProducts() {
           outlineButton
           outlineButtonIcon={<FontAwesomeIcon icon={faInfo}/>}
           outlineButtonOnClick={() => {
-            router.push('/available-products/test');
+            router.push('/available-products/laptop');
           }}
         />
         <ProductCard
-          productName="Product Name"
+          productName="Washing machine"
           solidButton
           solidButtonIcon={<FontAwesomeIcon icon={faRecycle}/>}
           solidButtonOnClick={() => openModal("test")}
@@ -80,7 +80,7 @@ export default function AvailableProducts() {
           outlineButtonIcon={<FontAwesomeIcon icon={faInfo}/>}
         />
         <ProductCard
-          productName="Product Name"
+          productName="Sofa"
           solidButton
           solidButtonIcon={<FontAwesomeIcon icon={faRecycle}/>}
           solidButtonOnClick={() => openModal("test")}
@@ -89,7 +89,7 @@ export default function AvailableProducts() {
           outlineButtonIcon={<FontAwesomeIcon icon={faInfo}/>}
         />
         <ProductCard
-          productName="Product Name"
+          productName="Wardrobe"
           solidButton
           solidButtonIcon={<FontAwesomeIcon icon={faRecycle}/>}
           solidButtonText="Claim"
@@ -97,7 +97,7 @@ export default function AvailableProducts() {
           outlineButtonIcon={<FontAwesomeIcon icon={faInfo}/>}
         />
         <ProductCard
-          productName="Product Name"
+          productName="Table"
           solidButton
           solidButtonIcon={<FontAwesomeIcon icon={faRecycle}/>}
           solidButtonText="Claim"
@@ -105,7 +105,7 @@ export default function AvailableProducts() {
           outlineButtonIcon={<FontAwesomeIcon icon={faInfo}/>}
         />
         <ProductCard
-          productName="Product Name"
+          productName="Lamp"
           solidButton
           solidButtonIcon={<FontAwesomeIcon icon={faRecycle}/>}
           solidButtonText="Claim"
@@ -113,23 +113,7 @@ export default function AvailableProducts() {
           outlineButtonIcon={<FontAwesomeIcon icon={faInfo}/>}
         />
         <ProductCard
-          productName="Product Name"
-          solidButton
-          solidButtonIcon={<FontAwesomeIcon icon={faRecycle}/>}
-          solidButtonText="Claim"
-          outlineButton
-          outlineButtonIcon={<FontAwesomeIcon icon={faInfo}/>}
-        />
-        <ProductCard
-          productName="Product Name"
-          solidButton
-          solidButtonIcon={<FontAwesomeIcon icon={faRecycle}/>}
-          solidButtonText="Claim"
-          outlineButton
-          outlineButtonIcon={<FontAwesomeIcon icon={faInfo}/>}
-        />
-        <ProductCard
-          productName="Product Name"
+          productName="Fridge"
           solidButton
           solidButtonIcon={<FontAwesomeIcon icon={faRecycle}/>}
           solidButtonText="Claim"

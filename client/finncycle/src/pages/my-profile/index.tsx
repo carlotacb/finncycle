@@ -5,10 +5,47 @@ import { faLightbulb, faTree, faHandshake } from "@fortawesome/free-solid-svg-ic
 import Head from "next/head";
 import {H1, StyledButton} from "../../components/generic-components/general-styled-components";
 import InputGroup from "../../components/generic-components/InputGroup";
-import {logoutForm} from "../../services/sessionAPI";
+import {getUserInformation, logoutForm} from "../../services/sessionAPI";
 import { useRouter } from "next/router";
 import {useState} from "react";
 import {onInputValueChange} from "../../constants/utils";
+import {GetServerSidePropsContext} from "next";
+import DefaultErrorPage from 'next/error'
+
+export async function getInitialProps(context: GetServerSidePropsContext) {
+  const response = await getUserInformation()
+  if (response.error) {
+    return {
+      props: {
+        email: '',
+        name: '',
+        address: '',
+        zipCode: '',
+        country: '',
+        city: '',
+        phone: '',
+        reusedCycles: '',
+        recycleCycles: '',
+        claimedCycles: ''
+      }
+    };
+  } else {
+    return {
+      props: {
+        email: response.email,
+        name: response.name,
+        address: response.address,
+        zipCode: response.zipCode,
+        country: response.country,
+        city: response.city,
+        phone: response.phone,
+        reusedCycles: response.reusedCycles,
+        recycleCycles: response.recycleCycles,
+        claimedCycles: response.claimedCycles
+      },
+    };
+  }
+}
 
 interface MyProfileProps {
   email: string
@@ -101,10 +138,10 @@ export default function MyProfile(props: MyProfileProps) {
       <Container>
         <H1>My Profile</H1>
         <InputGroup
-          value="carkbra@gmail.com"
+          value={props.email}
         />
         <InputGroup
-          value="+6780287y5"
+          value={props.phone}
         />
         <InputGroup
           editable
@@ -165,15 +202,15 @@ export default function MyProfile(props: MyProfileProps) {
 
         <StatsCyclesContainer>
           <GroupStat>
-            <StatNumber color={colors.primaryColor}>30 <FontAwesomeIcon icon={faLightbulb} /></StatNumber>
+            <StatNumber color={colors.primaryColor}>{props.reusedCycles} <FontAwesomeIcon icon={faLightbulb} /></StatNumber>
             <StatCaption> Reused items</StatCaption>
           </GroupStat>
           <GroupStat>
-            <StatNumber color={colors.red}>20 <FontAwesomeIcon icon={faTree} /></StatNumber>
+            <StatNumber color={colors.red}>{props.recycleCycles} <FontAwesomeIcon icon={faTree} /></StatNumber>
             <StatCaption> Recycled items </StatCaption>
           </GroupStat>
           <GroupStat>
-            <StatNumber color={colors.green}>10 <FontAwesomeIcon icon={faHandshake} /></StatNumber>
+            <StatNumber color={colors.green}>{props.claimedCycles} <FontAwesomeIcon icon={faHandshake} /></StatNumber>
             <StatCaption> Claimed cycles </StatCaption>
           </GroupStat>
         </StatsCyclesContainer>

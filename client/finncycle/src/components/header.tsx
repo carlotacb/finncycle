@@ -46,12 +46,7 @@ const LinkText = styled.div`
   }
 `;
 
-
-interface HeaderProps {
-  readonly hasSession: boolean
-}
-
-export default function Header(props: HeaderProps) {
+export default function Header() {
 
   return (
     <Container>

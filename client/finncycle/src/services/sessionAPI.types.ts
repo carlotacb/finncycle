@@ -23,6 +23,14 @@ export interface UserInformationBody {
   error: boolean
 }
 
+export interface UserUpdateBody {
+  name: string
+  address: string
+  zipCode: string
+  country: string
+  city: string
+}
+
 export interface UserLoginResponse {
   readonly token: string;
 }
