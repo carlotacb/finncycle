@@ -20,7 +20,7 @@ class UserController (
     fun registerUser(@RequestBody user : UsersEntity) : ResponseEntity<Any> {
         val res = userService.register(user)
         if (res != "") return ResponseEntity(res, HttpStatus.CREATED)
-        else return ResponseEntity(HttpStatus.BAD_REQUEST)
+        else return ResponseEntity(HttpStatus.NOT_FOUND)
     }
 
     // Login of a user

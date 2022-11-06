@@ -13,7 +13,7 @@ class CycleController(
         private val cycleService: CycleService
 ) {
 
-    @GetMapping()
+    @GetMapping(path = ["/usercycles"])
     fun getUserCycles(@RequestParam("apikey") apikey: String) : ResponseEntity<Any>{
         try {
             var cycles = cycleService.getUserCycles(apikey)
@@ -23,7 +23,7 @@ class CycleController(
         }
     }
 
-    @PostMapping()
+    @PostMapping(path = ["/claim"])
     fun claimCycle(@RequestParam("apikey") apikey : String, @RequestParam("idProduct") idProduct : Int) : ResponseEntity<Any>{
         try {
             val created = cycleService.claimCycle(apikey, idProduct)
@@ -35,6 +35,33 @@ class CycleController(
     }
 
     //TODO(" GET OUTGOING")
-    //TODO(" GET INCOMING")
-    //TODO(" GET TRASH")
+    @GetMapping(path = ["/outgoing"])
+    fun outgoingCycles(@RequestParam("apikey") apikey: String) : ResponseEntity<Any> {
+        try {
+            val res = cycleService.getOutgoing(apikey)
+            return ResponseEntity(res, HttpStatus.OK)
+        } catch (e : Exception) {
+            return ResponseEntity(HttpStatus.BAD_REQUEST)
+        }
+    }
+
+    @GetMapping(path = ["/incoming"])
+    fun incomingCycles(@RequestParam("apikey") apikey: String) : ResponseEntity<Any> {
+        try {
+            val res = cycleService.getIncoming(apikey)
+            return ResponseEntity(res, HttpStatus.OK)
+        } catch (e : Exception) {
+            return ResponseEntity(HttpStatus.BAD_REQUEST)
+        }
+    }
+
+    @GetMapping(path = ["/recycled"])
+    fun recycledCycles(@RequestParam("apikey") apikey: String) : ResponseEntity<Any> {
+        try {
+            val res = cycleService.getRecycled(apikey)
+            return ResponseEntity(res, HttpStatus.OK)
+        } catch (e : Exception) {
+            return ResponseEntity(HttpStatus.BAD_REQUEST)
+        }
+    }
 }
