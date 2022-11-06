@@ -94,7 +94,7 @@ class UserService (
         val reused = userRepository.countUsedItems(userDB.id)
         val recycled = userRepository.countRecycledItems(userDB.id)
         val claimed = userRepository.countClaimedItems(userDB.id)
-        return UserDTO(userDB.name, userDB.email, userDB.address, userDB.country, userDB.postalCode, userDB.phone,
+        return UserDTO(userDB.name, userDB.city, userDB.address, userDB.country, userDB.postalCode, userDB.phone,
             userDB.apiKey, reused, recycled, claimed)
     }
 }
