@@ -2,7 +2,7 @@ package com.junction.wolt22.beans
 
 data class UserDTO(
     val name : String?,
-    val email : String?,
+    val city : String?,
     val address : String?,
     val country : String?,
     val postalCode : String?,
