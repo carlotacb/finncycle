@@ -47,7 +47,6 @@ interface ProductCardProps {
   readonly outlineButtonText?: string;
   readonly outlineButtonIcon?: ReactElement;
   readonly outlineButtonOnClick?: () => void;
-  readonly status?: string;
 }
 
 export default function ProductCard(props: ProductCardProps){
@@ -60,8 +59,7 @@ export default function ProductCard(props: ProductCardProps){
     outlineButtonIcon,
     outlineButtonText,
     outlineButtonOnClick,
-    outlineButton,
-    status
+    outlineButton
   } = props;
 
   return (
@@ -73,10 +71,6 @@ export default function ProductCard(props: ProductCardProps){
             {solidButtonText ? solidButtonText : null }
             {solidButtonIcon ? solidButtonIcon : null }
           </ButtonWithIcon> :
-          null
-        }
-        {status ?
-          <div>{status}</div>:
           null
         }
         {outlineButton ?

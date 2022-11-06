@@ -42,7 +42,7 @@ export default function AvailableProducts() {
   return (
     <>
       <Head>
-        <title>Finncycle</title>
+        <title>Finncycle - Available products</title>
       </Head>
       <Container>
         <H1>Second Life Wait List</H1>
