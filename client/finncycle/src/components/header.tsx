@@ -3,6 +3,7 @@ import {colors} from "../constants/global-styles";
 import Link from "next/link";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowsSpin, faIdCard, faTruckFast} from "@fortawesome/free-solid-svg-icons";
+import {isLoggedIn} from "../constants/utils";
 
 const Container = styled.main`
   width: 100%;
@@ -45,30 +46,38 @@ const LinkText = styled.div`
   }
 `;
 
-export default function Header() {
+
+interface HeaderProps {
+  readonly hasSession: boolean
+}
+
+export default function Header(props: HeaderProps) {
+
   return (
     <Container>
       <Logo>FinnCycle</Logo>
-      <LinkSection>
-        <Link href="/available-products" passHref>
-          <LinkInformation>
-            <FontAwesomeIcon icon={faTruckFast} />
-            <LinkText>Available products</LinkText>
-          </LinkInformation>
-        </Link>
-        <Link href="/my-cycles" passHref>
-          <LinkInformation>
-            <FontAwesomeIcon icon={faArrowsSpin} />
-            <LinkText>My cycles</LinkText>
-          </LinkInformation>
-        </Link>
-        <Link href="/my-profile" passHref>
-          <LinkInformation>
-            <FontAwesomeIcon icon={faIdCard} />
-            <LinkText>My profile</LinkText>
-          </LinkInformation>
-        </Link>
-      </LinkSection>
+      {isLoggedIn() ?
+        <LinkSection>
+          <Link href="/available-products" passHref>
+            <LinkInformation>
+              <FontAwesomeIcon icon={faTruckFast} />
+              <LinkText>Available products</LinkText>
+            </LinkInformation>
+          </Link>
+          <Link href="/my-cycles" passHref>
+            <LinkInformation>
+              <FontAwesomeIcon icon={faArrowsSpin} />
+              <LinkText>My cycles</LinkText>
+            </LinkInformation>
+          </Link>
+          <Link href="/my-profile" passHref>
+            <LinkInformation>
+              <FontAwesomeIcon icon={faIdCard} />
+              <LinkText>My profile</LinkText>
+            </LinkInformation>
+          </Link>
+        </LinkSection> :
+        null }
     </Container>
   )
 }

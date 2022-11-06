@@ -2,7 +2,10 @@ import Head from "next/head";
 import {H1, StyledButton} from "../../components/generic-components/general-styled-components";
 import InputGroup from "../../components/generic-components/InputGroup";
 import styled from "styled-components";
-import {BaseSyntheticEvent} from "react";
+import { useState } from "react";
+import { onInputValueChange } from "../../constants/utils";
+import { registerForm } from "../../services/sessionAPI";
+import { useRouter } from "next/router";
 
 const Container = styled.div`
   display: flex;
@@ -26,13 +29,17 @@ const CreateButton = styled(StyledButton)`
   }
 `;
 
-const onInputValueChange = (
-  event: BaseSyntheticEvent,
-) => {
-  console.log(event.target.value)
-};
+export default function Register() {
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [address, setAddress] = useState('');
+  const [zipCode, setZipCode] = useState('');
+  const [city, setCity] = useState('');
+  const [country, setCountry] = useState('');
+  const router = useRouter();
 
-export default function Login() {
   return(
     <>
       <Head>
@@ -46,8 +53,18 @@ export default function Login() {
           required
           id="email"
           type="email"
-          onInputChange={onInputValueChange}
-          value=""
+          onInputChange={(e) => onInputValueChange(e, setEmail)}
+          value={email}
+          isInputType
+        />
+        <InputGroup
+          editable
+          label="Phone number"
+          required
+          id="phone"
+          type="phone"
+          onInputChange={(e) => onInputValueChange(e, setPhone)}
+          value={phone}
           isInputType
         />
         <InputGroup
@@ -56,8 +73,8 @@ export default function Login() {
           required
           id="password"
           type="password"
-          onInputChange={onInputValueChange}
-          value=""
+          onInputChange={(e) => onInputValueChange(e, setPassword)}
+          value={password}
           isInputType
         />
         <InputGroup
@@ -66,8 +83,8 @@ export default function Login() {
           required
           id="name"
           type="text"
-          onInputChange={onInputValueChange}
-          value=""
+          onInputChange={(e) => onInputValueChange(e, setName)}
+          value={name}
           isInputType
         />
         <InputGroup
@@ -76,8 +93,8 @@ export default function Login() {
           required
           id="address"
           type="text"
-          onInputChange={onInputValueChange}
-          value=""
+          onInputChange={(e) => onInputValueChange(e, setAddress)}
+          value={address}
           isInputType
         />
         <InputGroup
@@ -86,8 +103,8 @@ export default function Login() {
           required
           id="zip-code"
           type="number"
-          onInputChange={onInputValueChange}
-          value=""
+          onInputChange={(e) => onInputValueChange(e, setZipCode)}
+          value={zipCode}
           isInputType
         />
         <DoubleInputGroup>
@@ -97,8 +114,8 @@ export default function Login() {
             required
             id="city"
             type="text"
-            onInputChange={onInputValueChange}
-            value=""
+            onInputChange={(e) => onInputValueChange(e, setCity)}
+            value={city}
             small
             isInputType
           />
@@ -108,14 +125,14 @@ export default function Login() {
             required
             id="country"
             type="text"
-            onInputChange={onInputValueChange}
-            value=""
+            onInputChange={(e) => onInputValueChange(e, setCountry)}
+            value={country}
             small
             isInputType
           />
         </DoubleInputGroup>
 
-        <CreateButton type="submit" onClick={() => null} solid>Update information</CreateButton>
+        <CreateButton type="submit" onClick={() => registerForm(email, password, phone, name, address, zipCode, city, country, router)} solid>Register</CreateButton>
       </Container>
     </>
   )

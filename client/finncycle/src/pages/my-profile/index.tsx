@@ -1,12 +1,27 @@
 import styled from "styled-components";
-import {BaseSyntheticEvent} from "react";
 import {colors} from "../../constants/global-styles";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLightbulb, faTree, faHandshake } from "@fortawesome/free-solid-svg-icons";
 import Head from "next/head";
 import {H1, StyledButton} from "../../components/generic-components/general-styled-components";
 import InputGroup from "../../components/generic-components/InputGroup";
+import {logoutForm} from "../../services/sessionAPI";
+import { useRouter } from "next/router";
+import {useState} from "react";
+import {onInputValueChange} from "../../constants/utils";
 
+interface MyProfileProps {
+  email: string
+  name: string
+  address: string
+  zipCode: string
+  country: string
+  city: string
+  phone: string
+  reusedCycles: number
+  recycleCycles: number
+  claimedCycles: number
+}
 
 const Container = styled.div`
   display: flex;
@@ -69,25 +84,14 @@ const StatCaption = styled.div`
   font-style: italic;
 `;
 
-const onInputValueChange = (
-  event: BaseSyntheticEvent,
-  //information: ProfileInformation,
-  //setInformation: (_: ProfileInformation) => void,
-) => {
-  /*Object.entries(information).forEach(([_, inputFields]) => {
-    inputFields.forEach((field: InputField) => {
-      if (field.id === event.target.name) {
-        field.value = event.target.type === 'file' ? Array.from(event.target.files)[0] : event.target.value;
-        field.error = false;
-        setSections({ ...sections });
-      }
-    });
-  }); */
-  console.log(event.target.value)
-};
+export default function MyProfile(props: MyProfileProps) {
+  const router = useRouter();
+  const [name, setName] = useState(props.name);
+  const [address, setAddress] = useState(props.address);
+  const [zipCode, setZipCode] = useState(props.zipCode);
+  const [city, setCity] = useState(props.city);
+  const [country, setCountry] = useState(props.country);
 
-export default function MyProfile() {
-  // const [information, setInformation] = useState(profileInformation);
 
   return (
     <>
@@ -100,13 +104,16 @@ export default function MyProfile() {
           value="carkbra@gmail.com"
         />
         <InputGroup
+          value="+6780287y5"
+        />
+        <InputGroup
           editable
           label="Full name"
           required
           id="name"
           type="text"
-          onInputChange={onInputValueChange}
-          value=""
+          onInputChange={(e) => onInputValueChange(e, setName)}
+          value={name}
           isInputType
         />
         <InputGroup
@@ -115,8 +122,8 @@ export default function MyProfile() {
           required
           id="address"
           type="text"
-          onInputChange={onInputValueChange}
-          value=""
+          onInputChange={(e) => onInputValueChange(e, setAddress)}
+          value={address}
           isInputType
         />
         <InputGroup
@@ -125,8 +132,8 @@ export default function MyProfile() {
           required
           id="zip-code"
           type="number"
-          onInputChange={onInputValueChange}
-          value=""
+          onInputChange={(e) => onInputValueChange(e, setZipCode)}
+          value={zipCode}
           isInputType
         />
         <DoubleInputGroup>
@@ -136,8 +143,8 @@ export default function MyProfile() {
             required
             id="city"
             type="text"
-            onInputChange={onInputValueChange}
-            value=""
+            onInputChange={(e) => onInputValueChange(e, setCity)}
+            value={city}
             small
             isInputType
           />
@@ -147,8 +154,8 @@ export default function MyProfile() {
             required
             id="country"
             type="text"
-            onInputChange={onInputValueChange}
-            value=""
+            onInputChange={(e) => onInputValueChange(e, setCountry)}
+            value={country}
             small
             isInputType
           />
@@ -171,7 +178,7 @@ export default function MyProfile() {
           </GroupStat>
         </StatsCyclesContainer>
 
-        <LogoutButton type="button" onClick={() => null} outline>Logout</LogoutButton>
+        <LogoutButton type="button" onClick={() => logoutForm(router)} outline>Logout</LogoutButton>
       </Container>
     </>
   )
